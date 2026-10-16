@@ -31,7 +31,8 @@ verifyRouter.post('/verify', verifyLimiter, async (req, res) => {
       });
     }
 
-    const { message: rawMessage, conversationId } = parseResult.data;
+    const rawMessage = parseResult.data.message || parseResult.data.statement || '';
+    const conversationId = parseResult.data.conversationId || undefined;
     const cleanMessage = sanitizeVisitorMessage(rawMessage);
 
     // Get or initialize conversation session

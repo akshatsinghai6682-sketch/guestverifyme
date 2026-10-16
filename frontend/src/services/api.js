@@ -8,13 +8,22 @@ export async function fetchHealth() {
   return await res.json();
 }
 
-export async function verifyVisitor({ message, conversationId }) {
+export async function verifyVisitor({ message, statement, conversationId }) {
+  const text = message ?? statement ?? '';
+  const payload = {
+    message: text,
+    statement: text,
+  };
+  if (conversationId) {
+    payload.conversationId = conversationId;
+  }
+
   const res = await fetch('/verify', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ message, conversationId }),
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {

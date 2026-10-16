@@ -26,6 +26,24 @@ describe('GuestVerify Backend API Endpoints', () => {
     expect(res.body.aiMode).toBeTruthy();
   });
 
+  it('POST /verify accepts conversationId as null without 400 error', async () => {
+    const res = await request(app)
+      .post('/verify')
+      .send({ message: 'Delivery for John from Amazon', conversationId: null });
+
+    expect(res.status).toBe(200);
+    expect(res.body.verdict).toBe('AUTHORIZED');
+  });
+
+  it('POST /verify accepts statement field alias instead of message', async () => {
+    const res = await request(app)
+      .post('/verify')
+      .send({ statement: 'Delivery for John from Amazon' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.verdict).toBe('AUTHORIZED');
+  });
+
   it('POST /verify rejects invalid payloads with 400 Bad Request', async () => {
     const res = await request(app)
       .post('/verify')
