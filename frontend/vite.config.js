@@ -6,9 +6,9 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/verify': 'http://localhost:3001',
-      '/logs': 'http://localhost:3001',
-      '/health': 'http://localhost:3001',
+      '/verify': 'http://localhost:3002',
+      '/logs': 'http://localhost:3002',
+      '/health': 'http://localhost:3002',
     },
   },
 });
