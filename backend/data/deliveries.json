@@ -1,0 +1,58 @@
+{
+  "residents": [
+    "John Smith",
+    "Emily Davis"
+  ],
+  "expected_deliveries": [
+    {
+      "id": "del-001",
+      "recipient": "John Smith",
+      "carrier": "Amazon",
+      "window_start": "2026-10-16T18:00:00+05:30",
+      "window_end": "2026-10-16T21:00:00+05:30",
+      "tracking_last4": "4821"
+    },
+    {
+      "id": "del-002",
+      "recipient": "John Smith",
+      "carrier": "FedEx",
+      "window_start": "2026-10-16T10:00:00+05:30",
+      "window_end": "2026-10-16T12:00:00+05:30",
+      "tracking_last4": "9102"
+    },
+    {
+      "id": "del-003",
+      "recipient": "Emily Davis",
+      "carrier": "DHL",
+      "window_start": "2026-10-17T14:00:00+05:30",
+      "window_end": "2026-10-17T16:30:00+05:30",
+      "tracking_last4": "3310"
+    },
+    {
+      "id": "del-004",
+      "recipient": "Emily Davis",
+      "carrier": "Blue Dart",
+      "window_start": "2026-10-16T19:00:00+05:30",
+      "window_end": "2026-10-16T22:00:00+05:30",
+      "tracking_last4": "7744"
+    },
+    {
+      "id": "del-005",
+      "recipient": "John Smith",
+      "carrier": "UPS",
+      "window_start": "2026-10-16T18:30:00+05:30",
+      "window_end": "2026-10-16T20:30:00+05:30",
+      "tracking_last4": "1198"
+    }
+  ],
+  "trusted_visitors": [
+    {
+      "name": "Sarah Jenkins",
+      "notes": "Neighbor next door at #402, authorized for watering plants and spare keys"
+    },
+    {
+      "name": "David Miller",
+      "notes": "HVAC maintenance technician, pre-scheduled filter inspection"
+    }
+  ]
+}
