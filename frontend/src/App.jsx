@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header.jsx';
+import { CurtainTransition } from './components/CurtainTransition.jsx';
 import { DemoScenarios } from './components/DemoScenarios.jsx';
 import { DoorbellPanel } from './components/DoorbellPanel.jsx';
 import { ResultCard } from './components/ResultCard.jsx';
@@ -22,6 +23,36 @@ export default function App() {
   const [alerts, setAlerts] = useState([]);
   const [logs, setLogs] = useState([]);
   const [currentTime, setCurrentTime] = useState('');
+
+  // Dark/Light Theme with Theatrical Curtain Transition
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('guestverify-theme') || 'dark';
+  });
+  const [isCurtainActive, setIsCurtainActive] = useState(false);
+  const [curtainTargetTheme, setCurtainTargetTheme] = useState(theme);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    if (isCurtainActive) return;
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setCurtainTargetTheme(nextTheme);
+    setIsCurtainActive(true);
+
+    // Switch theme halfway through curtain close
+    setTimeout(() => {
+      setTheme(nextTheme);
+      localStorage.setItem('guestverify-theme', nextTheme);
+      document.documentElement.setAttribute('data-theme', nextTheme);
+    }, 320);
+
+    // Reset curtain after swipe completes
+    setTimeout(() => {
+      setIsCurtainActive(false);
+    }, 720);
+  };
 
   // Navigation tab & modal state
   const [activeTab, setActiveTab] = useState('intercom');
@@ -214,8 +245,11 @@ export default function App() {
   };
 
   return (
-    <div className="app-wrapper">
-      {/* Dynamic Ambient Background Lighting of Highest Quality */}
+    <div className={`app-wrapper theme-${theme}`} data-theme={theme}>
+      {/* Theatrical Curtain Transition Overlay */}
+      <CurtainTransition isActive={isCurtainActive} targetTheme={curtainTargetTheme} />
+
+      {/* Dynamic Ambient Background Lighting */}
       <div className="ambient-background" aria-hidden="true">
         <div className="ambient-spotlight" />
         <div className="ambient-orb ambient-orb-1" />
@@ -226,7 +260,7 @@ export default function App() {
       </div>
 
       <div className="app-container">
-        {/* Top Navigation & Status Bar */}
+        {/* Orchid-Style Top Navigation & Status Bar */}
         <Header
           aiMode={health.aiMode}
           speechEnabled={speechEnabled}
@@ -235,6 +269,8 @@ export default function App() {
           activeTab={activeTab}
           onTabClick={handleTabClick}
           onRingBell={handleRingBell}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
         />
 
         {/* Main Dashboard Layout */}

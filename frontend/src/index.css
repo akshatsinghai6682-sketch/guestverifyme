@@ -341,19 +341,29 @@ body {
 }
 
 /* ==========================================================================
-   SQUARESPACE-INSPIRED NAVBAR
+   ORCHID-INSPIRED NAVBAR (Inspired by user reference)
    ========================================================================== */
 
-.sq-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: #000000;
+.orchid-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  padding: 1.15rem 2rem;
+  z-index: 90;
+  width: 100%;
+  padding: 0.95rem 2rem;
+  background: rgba(4, 5, 7, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sq-header-inner {
+[data-theme="light"] .orchid-header {
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.03);
+}
+
+.orchid-header-inner {
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
@@ -362,107 +372,161 @@ body {
   gap: 1.5rem;
 }
 
-.sq-brand {
+.orchid-header-left {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+/* Brand Mark with 8-Petal Biometric Aperture */
+.orchid-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+}
+
+.orchid-logo-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="light"] .orchid-logo-symbol {
+  color: #0f172a;
+}
+
+.orchid-brand:hover .orchid-logo-symbol {
+  transform: rotate(45deg);
+}
+
+.orchid-brand-title {
+  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+[data-theme="light"] .orchid-brand-title {
+  color: #0f172a;
+}
+
+/* Navigation Links */
+.orchid-nav {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.sq-logo-mark {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-}
-
-.sq-logo-icon {
-  color: #ffffff;
-}
-
-.sq-brand-name {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-}
-
-.sq-brand-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  color: #71717a;
-  margin-left: 0.35rem;
-}
-
-.sq-nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.75rem;
-}
-
 @media (max-width: 960px) {
-  .sq-nav-links {
+  .orchid-nav {
     display: none;
   }
 }
 
-.sq-nav-item {
-  display: flex;
+/* Capsule Pill for Active Navigation Item (inspired by Orchid Use Cases pill) */
+.orchid-nav-capsule {
+  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  background: transparent;
-  border: none;
-  color: #a1a1aa;
+  gap: 0.45rem;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
   font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s ease;
-  padding: 0.4rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  transition: all 0.2s ease;
 }
 
-.sq-nav-item .nav-chevron {
-  color: #71717a;
+[data-theme="light"] .orchid-nav-capsule {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.orchid-nav-capsule:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="light"] .orchid-nav-capsule:hover {
+  background: #e2e8f0;
+}
+
+.orchid-chevron {
+  opacity: 0.7;
   transition: transform 0.2s ease;
 }
 
-.sq-nav-item:hover,
-.sq-nav-item.active {
+/* Secondary Navigation Links */
+.orchid-nav-link {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #a1a1aa;
+  cursor: pointer;
+  padding: 0.4rem 0.65rem;
+  transition: color 0.2s ease;
+}
+
+[data-theme="light"] .orchid-nav-link {
+  color: #64748b;
+}
+
+.orchid-nav-link:hover,
+.orchid-nav-link.is-active {
   color: #ffffff;
 }
 
-.sq-nav-item:hover .nav-chevron,
-.sq-nav-item.active .nav-chevron {
-  color: #ffffff;
+[data-theme="light"] .orchid-nav-link:hover,
+[data-theme="light"] .orchid-nav-link.is-active {
+  color: #0f172a;
 }
 
-.sq-header-actions {
+/* Right Header Controls */
+.orchid-header-right {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
 }
 
-.sq-clock-pill {
+.orchid-clock-pill {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.42rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 9999px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: #a1a1aa;
+  transition: all 0.2s ease;
 }
 
-.sq-speaker-btn {
+[data-theme="light"] .orchid-clock-pill {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  color: #475569;
+}
+
+.orchid-pulse-dot {
+  color: #38bdf8;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.orchid-icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -476,14 +540,27 @@ body {
   transition: all 0.2s ease;
 }
 
-.sq-speaker-btn:hover,
-.sq-speaker-btn.is-active {
+[data-theme="light"] .orchid-icon-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #475569;
+}
+
+.orchid-icon-btn:hover,
+.orchid-icon-btn.is-active {
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.12);
 }
 
-.sq-mode-pill {
+[data-theme="light"] .orchid-icon-btn:hover,
+[data-theme="light"] .orchid-icon-btn.is-active {
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.orchid-ai-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -495,60 +572,461 @@ body {
   letter-spacing: 0.04em;
 }
 
-.sq-mode-pill.is-mock {
+.orchid-ai-pill.is-mock {
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #34d399;
 }
 
-.sq-mode-pill.is-bedrock {
+[data-theme="light"] .orchid-ai-pill.is-mock {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #059669;
+}
+
+.orchid-ai-pill.is-bedrock {
   background: rgba(139, 92, 246, 0.15);
   border: 1px solid rgba(139, 92, 246, 0.35);
   color: #c084fc;
 }
 
-.sq-login-btn {
+/* Curtain Theme Toggle Button */
+.orchid-curtain-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fbbf24;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, background 0.2s ease;
+  user-select: none;
+}
+
+[data-theme="light"] .orchid-curtain-toggle-btn {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  color: #f8fafc;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+}
+
+.orchid-curtain-toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.35);
+}
+
+[data-theme="light"] .orchid-curtain-toggle-btn:hover {
+  box-shadow: 0 0 16px rgba(15, 23, 42, 0.25);
+}
+
+.curtain-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.curtain-toggle-label {
+  letter-spacing: 0.03em;
+}
+
+/* Login Button */
+.orchid-login-btn {
   background: transparent;
   border: none;
-  color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
   transition: opacity 0.2s ease;
 }
 
-.sq-login-btn:hover {
+[data-theme="light"] .orchid-login-btn {
+  color: #0f172a;
+}
+
+.orchid-login-btn:hover {
   opacity: 0.8;
 }
 
-/* Squarespace-style GET STARTED White Button */
-.sq-get-started-btn {
+/* Book a call / Get Started Pill Button */
+.orchid-cta-btn {
   background: #ffffff;
-  color: #000000;
+  color: #040507;
   border: none;
   border-radius: 9999px;
-  padding: 0.65rem 1.45rem;
+  padding: 0.6rem 1.4rem;
   font-family: var(--font-sans);
   font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
   white-space: nowrap;
 }
 
-.sq-get-started-btn:hover {
-  background: #f4f4f5;
-  transform: scale(1.02);
+[data-theme="light"] .orchid-cta-btn {
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+}
+
+.orchid-cta-btn:hover {
+  transform: scale(1.03);
   box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
 }
 
-.sq-get-started-btn:active {
+[data-theme="light"] .orchid-cta-btn:hover {
+  background: #1e293b;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+}
+
+.orchid-cta-btn:active {
   transform: scale(0.98);
+}
+
+/* ==========================================================================
+   THEATRICAL CURTAIN TRANSITION ENGINE
+   ========================================================================== */
+
+.curtain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.curtain-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  height: 100%;
+  pointer-events: auto;
+  will-change: transform;
+}
+
+.curtain-left {
+  left: 0;
+  transform: translateX(-100%);
+  transform-origin: left center;
+}
+
+.curtain-right {
+  right: 0;
+  transform: translateX(100%);
+  transform-origin: right center;
+}
+
+/* Transition to Light Mode: Obsidian Velvet Drape */
+.curtain-overlay.to-light .curtain-panel {
+  background: linear-gradient(135deg, #090a10 0%, #030406 50%, #0d1017 100%);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+}
+
+/* Transition to Dark Mode: Rich Ivory Silk Drape */
+.curtain-overlay.to-dark .curtain-panel {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #f1f5f9 100%);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.25);
+}
+
+.curtain-fabric-folds {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0) 24px,
+    rgba(0, 0, 0, 0.25) 48px,
+    rgba(255, 255, 255, 0.05) 72px
+  );
+}
+
+/* Center Seam Glow Line */
+.curtain-left .curtain-seam-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 3px;
+  background: #38bdf8;
+  box-shadow: 0 0 25px 8px rgba(56, 189, 248, 0.8), 0 0 50px 15px rgba(16, 185, 129, 0.6);
+}
+
+.curtain-right .curtain-seam-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: #38bdf8;
+  box-shadow: 0 0 25px 8px rgba(56, 189, 248, 0.8), 0 0 50px 15px rgba(16, 185, 129, 0.6);
+}
+
+/* Closing and Opening Keyframe Animations */
+.curtain-overlay.is-animating .curtain-left {
+  animation: curtainCloseLeft 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+             curtainOpenLeft 0.36s cubic-bezier(0.77, 0, 0.175, 1) 0.36s forwards;
+}
+
+.curtain-overlay.is-animating .curtain-right {
+  animation: curtainCloseRight 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+             curtainOpenRight 0.36s cubic-bezier(0.77, 0, 0.175, 1) 0.36s forwards;
+}
+
+@keyframes curtainCloseLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes curtainOpenLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes curtainCloseRight {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes curtainOpenRight {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Center Curtain Badge Reveal */
+.curtain-badge-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+  animation: curtainBadgePop 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.curtain-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.3);
+  color: #ffffff;
+}
+
+.curtain-overlay.to-dark .curtain-badge {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+
+.curtain-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  opacity: 0.75;
+}
+
+.curtain-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+@keyframes curtainBadgePop {
+  0% { opacity: 0; transform: scale(0.7); }
+  35% { opacity: 1; transform: scale(1.05); }
+  65% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
+
+/* ==========================================================================
+   LIGHT MODE: ORCHID AURORA & PRISTINE GLASS THEME
+   ========================================================================== */
+
+[data-theme="light"] {
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f8fafc;
+  --bg-input: #f1f5f9;
+  --border-editorial: #e2e8f0;
+  --border-light: #cbd5e1;
+  --border-glow: rgba(0, 0, 0, 0.12);
+
+  --text-white: #0f172a;
+  --text-ivory: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+}
+
+[data-theme="light"] body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+[data-theme="light"] .app-wrapper {
+  background-color: #f8fafc;
+}
+
+/* Colorful Orchid Aurora Mesh in Light Mode */
+[data-theme="light"] .ambient-background {
+  background: 
+    radial-gradient(circle 800px at 85% 15%, rgba(99, 102, 241, 0.28) 0%, rgba(59, 130, 246, 0.15) 40%, transparent 75%),
+    radial-gradient(circle 750px at 80% 45%, rgba(251, 146, 60, 0.25) 0%, rgba(244, 63, 94, 0.12) 45%, transparent 75%),
+    radial-gradient(circle 600px at 15% 75%, rgba(56, 189, 248, 0.2) 0%, transparent 70%),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+[data-theme="light"] .ambient-spotlight {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(56, 189, 248, 0.25) 0%,
+    rgba(99, 102, 241, 0.12) 45%,
+    transparent 75%
+  );
+  filter: blur(90px);
+  opacity: 0.8;
+}
+
+[data-theme="light"] .ambient-orb-1 {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 70%);
+}
+
+[data-theme="light"] .ambient-orb-2 {
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.2) 0%, transparent 70%);
+}
+
+[data-theme="light"] .ambient-orb-3 {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
+}
+
+[data-theme="light"] .ambient-grid-mesh {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+}
+
+[data-theme="light"] .ambient-grain-overlay {
+  opacity: 0.35;
+}
+
+/* Light Mode 3D Scenarios Section */
+[data-theme="light"] .sq-scenarios-section {
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .iso-stage-wrapper {
+  background: 
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(56, 189, 248, 0.08) 0%, rgba(99, 102, 241, 0.04) 40%, transparent 80%),
+    linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.03), 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .iso-stage-wrapper::before {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+[data-theme="light"] .iso-btn {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: -14px 14px 20px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .iso-btn::before {
+  background: #e2e8f0;
+}
+
+[data-theme="light"] .iso-btn::after {
+  background: #cbd5e1;
+}
+
+[data-theme="light"] .iso-btn:hover:not(:disabled),
+[data-theme="light"] .iso-btn.is-active {
+  background: var(--brand-color);
+  color: #ffffff;
+  box-shadow: -28px 28px 26px rgba(15, 23, 42, 0.18),
+              0 0 25px rgba(var(--brand-color), 0.25);
+}
+
+[data-theme="light"] .iso-icon {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Light Mode 3D Grid Cards (matching Orchid cards) */
+[data-theme="light"] .btn-3d-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 0 #cbd5e1, 0 10px 22px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .btn-3d-card:hover:not(:disabled) {
+  border-color: rgba(0, 0, 0, 0.18);
+  background: #ffffff;
+  box-shadow: 0 6px 0 #cbd5e1, 0 14px 26px rgba(15, 23, 42, 0.09);
+}
+
+[data-theme="light"] .card-3d-label {
+  color: #0f172a;
+}
+
+[data-theme="light"] .card-3d-desc {
+  color: #475569;
+}
+
+/* Light Mode Product Cards */
+[data-theme="light"] .sq-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .sq-card-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .sq-card-subtitle {
+  color: #64748b;
+}
+
+[data-theme="light"] .sq-impact-banner {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .sq-stat-number {
+  background: linear-gradient(180deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .sq-impact-sub {
+  color: #475569;
+}
+
+[data-theme="light"] .footer-bar {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  color: #64748b;
 }
 
 /* ==========================================================================
