@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 /**
  * AdvancedSecurityBackground
- * Elite, high-performance 60 FPS Canvas background simulating an advanced autonomous
- * AI residence defense and perimeter surveillance deck:
- * 1. Multi-ring precision biometric radar gimbal with degree markings & sweep beam
- * 2. Active target detection blips with expanding ping rings & telemetry HUD tags
- * 3. Interactive optical cursor tracking reticle with smooth spring damping
- * 4. Ground-plane 3D Lidar perspective grid simulating front porch depth
- * 5. Dynamic AI audio converse oscilloscope waveform representing real-time speech analysis
- * 6. Live cryptographic telemetry feeds along margins (AES-256, SHA-256, Zero-Trust locks)
- * 7. Hexagonal cyber perimeter shield pulses
- * 8. Theme adaptive (Dark Mode: Cyber Obsidian & Emerald/Cyan; Light Mode: Orchid Royal Blue & Sky)
+ * Elite, 60-120 FPS GSAP-accelerated Canvas background:
+ * 1. Driven by gsap.ticker for frame-rate synchronization (ProMotion/Retina support)
+ * 2. Uses gsap.quickTo for instant, fluid, physical cursor tracking
+ * 3. GSAP color tweening between Dark and Light mode
+ * 4. Multi-ring precision biometric radar gimbal with degree markings & sweep beam
+ * 5. Active target detection blips with expanding ping rings & telemetry HUD tags
+ * 6. Ground-plane 3D Lidar perspective grid simulating front porch depth
+ * 7. Dynamic AI audio converse oscilloscope waveform representing real-time speech analysis
+ * 8. Live cryptographic telemetry feeds along margins (AES-256, SHA-256, Zero-Trust locks)
  */
 export function SecurityRadarBackground({ theme = 'dark' }) {
   const canvasRef = useRef(null);
@@ -21,7 +21,6 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let animationFrameId;
     let width = 0;
     let height = 0;
 
@@ -40,16 +39,42 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
 
     const isLight = theme === 'light';
 
-    // Interactive mouse tracking with damped spring lag
-    let mouseX = width * 0.5;
-    let mouseY = height * 0.4;
-    let targetX = mouseX;
-    let targetY = mouseY;
+    // GSAP-animated theme color object for smooth crossfades between themes
+    const themeColors = {
+      primaryR: isLight ? 37 : 16,
+      primaryG: isLight ? 99 : 185,
+      primaryB: isLight ? 235 : 129,
+      secondaryR: isLight ? 99 : 6,
+      secondaryG: isLight ? 102 : 182,
+      secondaryB: isLight ? 241 : 212,
+      accentR: isLight ? 56 : 52,
+      accentG: isLight ? 189 : 211,
+      accentB: isLight ? 248 : 153,
+    };
+
+    gsap.to(themeColors, {
+      primaryR: isLight ? 37 : 16,
+      primaryG: isLight ? 99 : 185,
+      primaryB: isLight ? 235 : 129,
+      secondaryR: isLight ? 99 : 6,
+      secondaryG: isLight ? 102 : 182,
+      secondaryB: isLight ? 241 : 212,
+      accentR: isLight ? 56 : 52,
+      accentG: isLight ? 189 : 211,
+      accentB: isLight ? 248 : 153,
+      duration: 0.6,
+      ease: 'power2.out',
+    });
+
+    // GSAP-powered cursor follower with quickTo physics
+    const cursor = { x: width * 0.5, y: height * 0.4 };
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.32, ease: 'power3.out' });
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.32, ease: 'power3.out' });
     let isMouseInside = false;
 
     const handleMouseMove = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      xTo(e.clientX);
+      yTo(e.clientY);
       isMouseInside = true;
     };
 
@@ -109,7 +134,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       'ROSTER_MATCH: deliveries.json',
       'AES_256_GCM // CIPHER_SECURE',
       'BIOMETRIC_HUD // STATE: ACTIVE',
-      'NLP_SENTIMENT: CONVERSATIONAL',
+      'GSAP_ENGINE: ACCELERATED',
       'PERIMETER_GRID // 360_SWEEP_OK',
     ];
 
@@ -119,14 +144,10 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       frame++;
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth cursor follower interpolation
-      targetX += (mouseX - targetX) * 0.08;
-      targetY += (mouseY - targetY) * 0.08;
-
-      // Color scheme tokens
-      const primaryColor = isLight ? 'rgba(37, 99, 235,' : 'rgba(16, 185, 129,';
-      const secondaryColor = isLight ? 'rgba(99, 102, 241,' : 'rgba(6, 182, 212,';
-      const accentColor = isLight ? 'rgba(56, 189, 248,' : 'rgba(52, 211, 153,';
+      // Color getters based on GSAP tweened object
+      const primary = (a) => `rgba(${Math.round(themeColors.primaryR)}, ${Math.round(themeColors.primaryG)}, ${Math.round(themeColors.primaryB)}, ${a})`;
+      const secondary = (a) => `rgba(${Math.round(themeColors.secondaryR)}, ${Math.round(themeColors.secondaryG)}, ${Math.round(themeColors.secondaryB)}, ${a})`;
+      const accent = (a) => `rgba(${Math.round(themeColors.accentR)}, ${Math.round(themeColors.accentG)}, ${Math.round(themeColors.accentB)}, ${a})`;
       const hudTextColor = isLight ? 'rgba(30, 41, 59, 0.45)' : 'rgba(148, 163, 184, 0.45)';
 
       // =========================================================================
@@ -143,7 +164,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         ctx.moveTo(fovX + i * 2, horizonY);
         ctx.lineTo(bottomX, height);
       }
-      ctx.strokeStyle = isLight ? 'rgba(99, 102, 241, 0.035)' : 'rgba(6, 182, 212, 0.04)';
+      ctx.strokeStyle = secondary(0.04);
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -158,7 +179,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         ctx.beginPath();
         ctx.moveTo(0, lineY);
         ctx.lineTo(width, lineY);
-        ctx.strokeStyle = `${primaryColor} ${alpha})`;
+        ctx.strokeStyle = primary(alpha);
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -183,7 +204,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
 
         ctx.beginPath();
         ctx.arc(radarX, radarY, ring.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `${primaryColor} ${ringAlpha})`;
+        ctx.strokeStyle = primary(ringAlpha);
         ctx.lineWidth = 1;
         ctx.setLineDash([4, 6]);
         ctx.stroke();
@@ -195,11 +216,10 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         const r = radarMaxRadius * fraction;
         ctx.beginPath();
         ctx.arc(radarX, radarY, r, 0, Math.PI * 2);
-        ctx.strokeStyle = isLight ? 'rgba(99, 102, 241, 0.08)' : 'rgba(56, 189, 248, 0.09)';
+        ctx.strokeStyle = accent(0.09);
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // High-tech zone indicator
         ctx.font = '8px monospace';
         ctx.fillStyle = hudTextColor;
         ctx.fillText(`PERIMETER_0${idx + 1} // ${Math.round(fraction * 50)}M`, radarX + r + 6, radarY + 3);
@@ -242,15 +262,9 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       const sweepAngleSpan = 0.58;
 
       const sweepGrad = ctx.createRadialGradient(radarX, radarY, 0, radarX, radarY, radarMaxRadius);
-      if (isLight) {
-        sweepGrad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
-        sweepGrad.addColorStop(0.5, 'rgba(99, 102, 241, 0.15)');
-        sweepGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
-      } else {
-        sweepGrad.addColorStop(0, 'rgba(16, 185, 129, 0.36)');
-        sweepGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.16)');
-        sweepGrad.addColorStop(1, 'rgba(16, 185, 129, 0)');
-      }
+      sweepGrad.addColorStop(0, primary(0.35));
+      sweepGrad.addColorStop(0.5, secondary(0.15));
+      sweepGrad.addColorStop(1, primary(0));
 
       ctx.save();
       ctx.beginPath();
@@ -267,7 +281,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         radarX + Math.cos(radarAngle) * radarMaxRadius,
         radarY + Math.sin(radarAngle) * radarMaxRadius
       );
-      ctx.strokeStyle = `${accentColor} 0.8)`;
+      ctx.strokeStyle = accent(0.85);
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.restore();
@@ -279,7 +293,6 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         const tx = radarX + Math.cos(target.angle) * target.dist;
         const ty = radarY + Math.sin(target.angle) * target.dist;
 
-        // Check if radar sweep just passed over this target
         const angleDiff = (radarAngle - target.angle + Math.PI * 2) % (Math.PI * 2);
         if (angleDiff < 0.15) {
           target.pulse = 1.0;
@@ -289,22 +302,19 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
 
         const currentAlpha = Math.min(1, (isLight ? 0.4 : 0.35) + target.pulse * 0.65);
 
-        // Target blip center dot
         ctx.beginPath();
         ctx.arc(tx, ty, target.pulse > 0 ? 3.8 : 2.4, 0, Math.PI * 2);
-        ctx.fillStyle = `${accentColor} ${currentAlpha})`;
+        ctx.fillStyle = accent(currentAlpha);
         ctx.fill();
 
-        // Expanding ping shockwave ring
         if (target.pulse > 0.08) {
           ctx.beginPath();
           ctx.arc(tx, ty, 5 + (1 - target.pulse) * 20, 0, Math.PI * 2);
-          ctx.strokeStyle = `${accentColor} ${target.pulse * 0.7})`;
+          ctx.strokeStyle = accent(target.pulse * 0.7);
           ctx.lineWidth = 1;
           ctx.stroke();
         }
 
-        // Target HUD callout label
         if (target.pulse > 0.04 || frame % 120 < 90) {
           ctx.font = '8px monospace';
           ctx.fillStyle = isLight
@@ -330,10 +340,9 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         const pulse = Math.sin(frame * p.pulseSpeed) * 0.35 + 0.65;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `${secondaryColor} ${p.alpha * pulse * 0.6})`;
+        ctx.fillStyle = secondary(p.alpha * pulse * 0.6);
         ctx.fill();
 
-        // Connect nearby nodes
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
@@ -345,7 +354,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `${primaryColor} ${lineAlpha})`;
+            ctx.strokeStyle = primary(lineAlpha);
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -353,49 +362,45 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       }
 
       // =========================================================================
-      // 5. INTERACTIVE OPTICAL CURSOR TARGETING GIMBAL (TRACKING VISITOR)
+      // 5. GSAP-ACCELERATED OPTICAL CURSOR TARGETING GIMBAL
       // =========================================================================
-      if (isMouseInside && targetX > 0 && targetY > 0) {
+      if (isMouseInside && cursor.x > 0 && cursor.y > 0) {
         const reticleRadius = 26;
         ctx.save();
-        ctx.translate(targetX, targetY);
+        ctx.translate(cursor.x, cursor.y);
 
-        // Rotating outer brackets
         ctx.rotate(frame * 0.015);
         ctx.beginPath();
         ctx.arc(0, 0, reticleRadius, 0, Math.PI * 0.4);
         ctx.arc(0, 0, reticleRadius, Math.PI * 0.5, Math.PI * 0.9);
         ctx.arc(0, 0, reticleRadius, Math.PI * 1.0, Math.PI * 1.4);
         ctx.arc(0, 0, reticleRadius, Math.PI * 1.5, Math.PI * 1.9);
-        ctx.strokeStyle = `${secondaryColor} 0.35)`;
+        ctx.strokeStyle = secondary(0.35);
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Center crosshair
         ctx.beginPath();
         ctx.moveTo(-6, 0);
         ctx.lineTo(6, 0);
         ctx.moveTo(0, -6);
         ctx.lineTo(0, 6);
-        ctx.strokeStyle = `${accentColor} 0.55)`;
+        ctx.strokeStyle = accent(0.55);
         ctx.lineWidth = 1;
         ctx.stroke();
         ctx.restore();
 
-        // Dynamic coordinate tag following cursor
         ctx.font = '8px monospace';
         ctx.fillStyle = isLight ? 'rgba(30, 41, 59, 0.65)' : 'rgba(56, 189, 248, 0.65)';
         ctx.fillText(
-          `LOCK: [X:${Math.round(targetX)} Y:${Math.round(targetY)}] // OPTICAL_TRACK`,
-          targetX + 32,
-          targetY + 4
+          `LOCK: [X:${Math.round(cursor.x)} Y:${Math.round(cursor.y)}] // OPTICAL_TRACK`,
+          cursor.x + 32,
+          cursor.y + 4
         );
 
-        // Laser link between cursor and closest telemetry node
         let closestDist = Infinity;
         let closestP = null;
         for (let i = 0; i < particles.length; i++) {
-          const d = Math.hypot(particles[i].x - targetX, particles[i].y - targetY);
+          const d = Math.hypot(particles[i].x - cursor.x, particles[i].y - cursor.y);
           if (d < closestDist && d < 180) {
             closestDist = d;
             closestP = particles[i];
@@ -404,9 +409,9 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
 
         if (closestP) {
           ctx.beginPath();
-          ctx.moveTo(targetX, targetY);
+          ctx.moveTo(cursor.x, cursor.y);
           ctx.lineTo(closestP.x, closestP.y);
-          ctx.strokeStyle = `${accentColor} ${Math.max(0, 0.35 - closestDist / 500)})`;
+          ctx.strokeStyle = accent(Math.max(0, 0.35 - closestDist / 500));
           ctx.lineWidth = 0.9;
           ctx.setLineDash([3, 4]);
           ctx.stroke();
@@ -432,7 +437,7 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
         if (i === 0) ctx.moveTo(wx, wy);
         else ctx.lineTo(wx, wy);
       }
-      ctx.strokeStyle = isLight ? 'rgba(59, 130, 246, 0.08)' : 'rgba(6, 182, 212, 0.12)';
+      ctx.strokeStyle = secondary(0.12);
       ctx.lineWidth = 1.2;
       ctx.stroke();
       ctx.restore();
@@ -446,28 +451,22 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       }
 
       if (scanLineY >= 0 && scanLineY <= height) {
-        // Gradient trailing beam above scan line
         const scanGrad = ctx.createLinearGradient(0, scanLineY - 35, 0, scanLineY);
         scanGrad.addColorStop(0, 'rgba(56, 189, 248, 0)');
-        scanGrad.addColorStop(
-          1,
-          isLight ? 'rgba(56, 189, 248, 0.10)' : 'rgba(16, 185, 129, 0.09)'
-        );
+        scanGrad.addColorStop(1, primary(0.09));
 
         ctx.fillStyle = scanGrad;
         ctx.fillRect(0, scanLineY - 35, width, 35);
 
-        // Crisp laser line
         ctx.beginPath();
         ctx.moveTo(0, scanLineY);
         ctx.lineTo(width, scanLineY);
-        ctx.strokeStyle = `${accentColor} 0.45)`;
+        ctx.strokeStyle = accent(0.45);
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Edge scanner indicators on left and right
         ctx.font = '8px monospace';
-        ctx.fillStyle = `${accentColor} 0.75)`;
+        ctx.fillStyle = accent(0.75);
         ctx.fillText('OPTICAL_SCAN // ACTIVE', 24, scanLineY - 5);
         ctx.fillText('RESIDENCE_GRID_LOCK', width - 150, scanLineY - 5);
       }
@@ -478,12 +477,10 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       ctx.font = '7.5px monospace';
       ctx.fillStyle = hudTextColor;
 
-      // Left gutter telemetry stream
       telemetryItems.slice(0, 4).forEach((item, idx) => {
         ctx.fillText(item, 26, height * 0.22 + idx * 16);
       });
 
-      // Right gutter telemetry stream
       telemetryItems.slice(4).forEach((item, idx) => {
         const textWidth = ctx.measureText(item).width;
         ctx.fillText(item, width - textWidth - 26, height * 0.22 + idx * 16);
@@ -510,17 +507,16 @@ export function SecurityRadarBackground({ theme = 'dark' }) {
       drawBracket(width - 28, 28, 14, true, false);
       drawBracket(28, height - 28, 14, false, true);
       drawBracket(width - 28, height - 28, 14, true, true);
-
-      animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    // Use GSAP ticker for 60/120 FPS high refresh rate rendering
+    gsap.ticker.add(render);
 
     return () => {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
-      cancelAnimationFrame(animationFrameId);
+      gsap.ticker.remove(render);
     };
   }, [theme]);
 

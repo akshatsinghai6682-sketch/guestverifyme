@@ -41,19 +41,18 @@ export default function App() {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
     setCurtainTargetTheme(nextTheme);
     setIsCurtainActive(true);
-
-    // Switch theme halfway through curtain close
-    setTimeout(() => {
-      setTheme(nextTheme);
-      localStorage.setItem('guestverify-theme', nextTheme);
-      document.documentElement.setAttribute('data-theme', nextTheme);
-    }, 320);
-
-    // Reset curtain after swipe completes
-    setTimeout(() => {
-      setIsCurtainActive(false);
-    }, 720);
   };
+
+  const handleCurtainThemeSwitch = () => {
+    setTheme(curtainTargetTheme);
+    localStorage.setItem('guestverify-theme', curtainTargetTheme);
+    document.documentElement.setAttribute('data-theme', curtainTargetTheme);
+  };
+
+  const handleCurtainComplete = () => {
+    setIsCurtainActive(false);
+  };
+
 
   // Navigation tab & modal state
   const [activeTab, setActiveTab] = useState('intercom');
@@ -248,7 +247,12 @@ export default function App() {
   return (
     <div className={`app-wrapper theme-${theme}`} data-theme={theme}>
       {/* Theatrical Curtain Transition Overlay */}
-      <CurtainTransition isActive={isCurtainActive} targetTheme={curtainTargetTheme} />
+      <CurtainTransition
+        isActive={isCurtainActive}
+        targetTheme={curtainTargetTheme}
+        onThemeSwitch={handleCurtainThemeSwitch}
+        onAnimationComplete={handleCurtainComplete}
+      />
 
       {/* Dynamic Ambient Background Lighting & Security Radar Grid */}
       <div className="ambient-background" aria-hidden="true">
