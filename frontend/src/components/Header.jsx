@@ -1,47 +1,54 @@
 import React from 'react';
-import { ShieldCheck, Volume2, VolumeX, Cpu, Radio } from 'lucide-react';
+import { ShieldCheck, Volume2, VolumeX, Cpu, Radio, Shield } from 'lucide-react';
 
 export function Header({ aiMode, speechEnabled, setSpeechEnabled, currentTime }) {
   const isBedrock = aiMode === 'bedrock';
 
   return (
-    <header className="header-container">
-      <div className="header-brand">
-        <div className="brand-icon-wrapper">
-          <ShieldCheck className="brand-icon" />
-          <span className="live-dot" />
-        </div>
-        <div>
-          <div className="brand-title-row">
-            <h1 className="brand-title">GuestVerify</h1>
-            <span className="brand-version">v2.0 Guard</span>
+    <header className="sq-header">
+      <div className="sq-header-inner">
+        {/* Brand Logo */}
+        <div className="sq-brand">
+          <div className="sq-logo-mark">
+            <ShieldCheck size={22} className="sq-logo-icon" />
           </div>
-          <p className="brand-subtitle">AI Security Guard for Smart Intercom & Doorbell</p>
-        </div>
-      </div>
-
-      <div className="header-actions">
-        {/* Live Clock */}
-        <div className="clock-badge">
-          <Radio size={14} className="pulse-icon text-cyan" />
-          <span>{currentTime || 'IST 18:00+'}</span>
+          <div className="sq-brand-text">
+            <span className="sq-brand-name">GUESTVERIFY</span>
+            <span className="sq-brand-badge">PRO GUARD</span>
+          </div>
         </div>
 
-        {/* Spoken Audio Toggle */}
-        <button
-          onClick={() => setSpeechEnabled(!speechEnabled)}
-          className={`icon-toggle-btn ${speechEnabled ? 'active' : ''}`}
-          title={speechEnabled ? 'Mute Doorbell Speaker' : 'Enable Doorbell Speaker'}
-          type="button"
-        >
-          {speechEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
-          <span className="toggle-text">{speechEnabled ? 'Speaker ON' : 'Speaker MUTED'}</span>
-        </button>
+        {/* Center Editorial Links */}
+        <nav className="sq-nav-links">
+          <span className="sq-nav-item active">INTERCOM STREAM</span>
+          <span className="sq-nav-item">SECURITY ROSTER</span>
+          <span className="sq-nav-item">DECISION AUDIT</span>
+        </nav>
 
-        {/* AI Operating Mode Badge */}
-        <div className={`mode-badge ${isBedrock ? 'mode-bedrock' : 'mode-mock'}`}>
-          <Cpu size={14} />
-          <span>{isBedrock ? 'Bedrock AI (Claude)' : 'Mock AI (Rule Engine)'}</span>
+        {/* Right Actions */}
+        <div className="sq-header-actions">
+          {/* Live IST Clock */}
+          <div className="sq-clock-pill">
+            <Radio size={13} className="text-cyan pulse-icon" />
+            <span>{currentTime || 'IST ACTIVE'}</span>
+          </div>
+
+          {/* 3D Speaker Button */}
+          <button
+            onClick={() => setSpeechEnabled(!speechEnabled)}
+            className={`btn-3d btn-3d-secondary ${speechEnabled ? 'is-active' : ''}`}
+            title={speechEnabled ? 'Mute Intercom Speaker' : 'Enable Intercom Speaker'}
+            type="button"
+          >
+            {speechEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
+            <span>{speechEnabled ? 'SPEAKER ON' : 'MUTED'}</span>
+          </button>
+
+          {/* 3D Mode Pill */}
+          <div className={`btn-3d sq-mode-btn ${isBedrock ? 'btn-3d-purple' : 'btn-3d-emerald'}`}>
+            <Cpu size={14} />
+            <span>{isBedrock ? 'BEDROCK AI' : 'MOCK AI'}</span>
+          </div>
         </div>
       </div>
     </header>

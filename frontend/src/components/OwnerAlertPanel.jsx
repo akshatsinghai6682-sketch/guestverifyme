@@ -1,54 +1,67 @@
 import React from 'react';
-import { BellRing, ShieldAlert, X, Smartphone, Check } from 'lucide-react';
+import { BellRing, ShieldAlert, Smartphone, Check, ShieldCheck } from 'lucide-react';
 
 export function OwnerAlertPanel({ alerts, onDismissAlert, onClearAll }) {
   if (!alerts || alerts.length === 0) {
     return (
-      <div className="owner-alert-panel clean-state">
-        <div className="panel-header">
-          <div className="header-left">
-            <Smartphone size={16} className="text-cyan" />
-            <h4 className="panel-heading">Simulated Owner Notifications</h4>
+      <div className="sq-card sq-card-alerts is-clean">
+        <div className="sq-card-header">
+          <div className="sq-card-title-group">
+            <span className="sq-card-number">03</span>
+            <div>
+              <h2 className="sq-card-title">Owner Push Feed</h2>
+              <p className="sq-card-subtitle">Real-time Emergency Dispatch</p>
+            </div>
           </div>
-          <span className="clean-badge">System Secure</span>
+          <span className="sq-status-pill pill-secure">
+            <ShieldCheck size={12} /> SECURE
+          </span>
         </div>
-        <p className="clean-subtext">No security alerts triggered. Standing by for suspicious activity.</p>
+        <p className="sq-clean-message">No suspicious incidents detected. Perimeters secure.</p>
       </div>
     );
   }
 
   return (
-    <div className="owner-alert-panel has-alerts">
-      <div className="panel-header">
-        <div className="header-left">
-          <BellRing size={16} className="text-red alert-bell-shake" />
-          <h4 className="panel-heading text-red">Owner Phone Alert Feed ({alerts.length})</h4>
+    <div className="sq-card sq-card-alerts has-alarm">
+      <div className="sq-card-header">
+        <div className="sq-card-title-group">
+          <span className="sq-card-number">03</span>
+          <div>
+            <h2 className="sq-card-title text-red">Owner Push Feed ({alerts.length})</h2>
+            <p className="sq-card-subtitle">Simulated SMS & Smartphone Dispatches</p>
+          </div>
         </div>
-        <button onClick={onClearAll} className="clear-alerts-btn" type="button">
-          Dismiss All
+        <button
+          onClick={onClearAll}
+          className="btn-3d btn-3d-neutral btn-sm"
+          type="button"
+        >
+          DISMISS ALL
         </button>
       </div>
 
-      <div className="alerts-list">
+      <div className="sq-alerts-stream">
         {alerts.map((alert) => (
-          <div key={alert.id} className="alert-item">
-            <div className="alert-top">
-              <div className="alert-title-wrap">
+          <div key={alert.id} className="sq-alert-card">
+            <div className="sq-alert-card-top">
+              <div className="sq-alert-title-wrap">
                 <ShieldAlert size={16} className="text-red" />
-                <span className="alert-title">SECURITY EVENT: Access Denied</span>
+                <span className="sq-alert-label">ACCESS DENIED</span>
               </div>
-              <span className="alert-time">{alert.time}</span>
+              <span className="sq-alert-timestamp">{alert.time}</span>
             </div>
-            <p className="alert-msg">"{alert.visitorMessage || 'Unrecognized visitor'}"</p>
-            <p className="alert-reason">{alert.reasoning}</p>
-            <div className="alert-footer">
-              <span className="alert-action">SMS & App Push Simulated</span>
+            <p className="sq-alert-quote">"{alert.visitorMessage || 'Unrecognized visitor'}"</p>
+            <p className="sq-alert-reason">{alert.reasoning}</p>
+            <div className="sq-alert-card-bottom">
+              <span className="sq-alert-badge-sms">Mobile Push Simulated</span>
               <button
                 onClick={() => onDismissAlert(alert.id)}
-                className="dismiss-single-btn"
-                title="Dismiss notification"
+                className="btn-3d btn-3d-neutral btn-xs"
+                title="Acknowledge alert"
               >
                 <Check size={12} />
+                <span>ACK</span>
               </button>
             </div>
           </div>

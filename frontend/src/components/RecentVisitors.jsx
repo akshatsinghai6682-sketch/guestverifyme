@@ -1,5 +1,5 @@
 import React from 'react';
-import { History, ShieldCheck, HelpCircle, ShieldAlert, Users } from 'lucide-react';
+import { History, ShieldCheck, HelpCircle, ShieldAlert, Users, ArrowUpRight } from 'lucide-react';
 
 export function RecentVisitors({ logs, onSelectLog }) {
   const total = logs.length;
@@ -8,56 +8,47 @@ export function RecentVisitors({ logs, onSelectLog }) {
   const needsInfo = logs.filter((l) => l.verdict === 'NEEDS_MORE_INFO').length;
 
   return (
-    <div className="recent-visitors-panel">
-      {/* Stats row */}
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-label">
-            <Users size={13} className="text-muted" />
-            <span>Total</span>
+    <div className="sq-card sq-card-logs">
+      {/* Editorial Card Header */}
+      <div className="sq-card-header">
+        <div className="sq-card-title-group">
+          <span className="sq-card-number">04</span>
+          <div>
+            <h2 className="sq-card-title">Recent Visitors Audit</h2>
+            <p className="sq-card-subtitle">decisions.jsonl Event Journal</p>
           </div>
-          <div className="stat-val">{total}</div>
-        </div>
-
-        <div className="stat-card stat-authorized">
-          <div className="stat-label">
-            <ShieldCheck size={13} className="text-emerald" />
-            <span>Authorized</span>
-          </div>
-          <div className="stat-val text-emerald">{authorized}</div>
-        </div>
-
-        <div className="stat-card stat-needs-info">
-          <div className="stat-label">
-            <HelpCircle size={13} className="text-amber" />
-            <span>Needs Info</span>
-          </div>
-          <div className="stat-val text-amber">{needsInfo}</div>
-        </div>
-
-        <div className="stat-card stat-suspicious">
-          <div className="stat-label">
-            <ShieldAlert size={13} className="text-red" />
-            <span>Suspicious</span>
-          </div>
-          <div className="stat-val text-red">{suspicious}</div>
         </div>
       </div>
 
-      {/* Recent Visitors Log Header */}
-      <div className="panel-title-row">
-        <History size={16} className="text-cyan" />
-        <h3 className="panel-title">Recent Visitors Log</h3>
+      {/* 3D Tactile Metric Tiles */}
+      <div className="sq-metrics-grid">
+        <div className="metric-tile">
+          <span className="metric-label">TOTAL</span>
+          <span className="metric-val">{total}</span>
+        </div>
+        <div className="metric-tile tile-authorized">
+          <span className="metric-label">AUTHORIZED</span>
+          <span className="metric-val text-emerald">{authorized}</span>
+        </div>
+        <div className="metric-tile tile-needs-info">
+          <span className="metric-label">INQUIRY</span>
+          <span className="metric-val text-amber">{needsInfo}</span>
+        </div>
+        <div className="metric-tile tile-suspicious">
+          <span className="metric-label">DENIED</span>
+          <span className="metric-val text-red">{suspicious}</span>
+        </div>
       </div>
 
-      {logs.length === 0 ? (
-        <div className="empty-logs">
-          <p>No visitor history yet.</p>
-          <p className="empty-subtext">Events will appear here as visitors ring the doorbell.</p>
-        </div>
-      ) : (
-        <div className="logs-feed">
-          {logs.slice(0, 15).map((item, idx) => {
+      {/* Visitor Event Stream */}
+      <div className="sq-logs-stream">
+        {logs.length === 0 ? (
+          <div className="sq-empty-logs">
+            <p>No recorded visitors yet.</p>
+            <span>Events will automatically populate upon intercom activation.</span>
+          </div>
+        ) : (
+          logs.slice(0, 15).map((item, idx) => {
             const isAuth = item.verdict === 'AUTHORIZED';
             const isSusp = item.verdict === 'SUSPICIOUS';
 
@@ -68,37 +59,41 @@ export function RecentVisitors({ logs, onSelectLog }) {
               : 'badge-needs-info';
 
             const timeString = item.timestamp
-              ? new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+              ? new Date(item.timestamp).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                })
               : 'Just now';
 
             return (
               <div
                 key={idx}
-                className="log-item"
+                className="sq-log-entry"
                 onClick={() => onSelectLog && onSelectLog(item)}
               >
-                <div className="log-top">
-                  <span className={`log-verdict-badge ${badgeClass}`}>
+                <div className="sq-log-top">
+                  <span className={`sq-log-badge ${badgeClass}`}>
                     {item.verdict}
                   </span>
-                  <span className="log-time">{timeString}</span>
+                  <span className="sq-log-time">{timeString}</span>
                 </div>
-                <p className="log-msg">
-                  "{item.visitorMessage || item.message || '(Empty message)'}"
+                <p className="sq-log-text">
+                  "{item.visitorMessage || item.message || '(Silent Ring)'}"
                 </p>
-                <div className="log-bottom">
-                  <span className="log-confidence">
-                    Score: {Math.round((item.confidence || 0) * 100)}%
-                  </span>
+                <div className="sq-log-meta">
+                  <span>Confidence: {Math.round((item.confidence || 0) * 100)}%</span>
                   {item.matchedDelivery && (
-                    <span className="log-delivery">{item.matchedDelivery}</span>
+                    <span className="sq-log-schedule-id">
+                      {item.matchedDelivery}
+                    </span>
                   )}
                 </div>
               </div>
             );
-          })}
-        </div>
-      )}
+          })
+        )}
+      </div>
     </div>
   );
 }

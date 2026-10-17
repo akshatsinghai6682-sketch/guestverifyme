@@ -10,28 +10,42 @@ import {
   CheckCircle2,
   Lock,
   Unlock,
+  Radio,
 } from 'lucide-react';
 
 export function ResultCard({ result, loading }) {
   if (loading) {
     return (
-      <div className="result-card loading-skeleton">
-        <div className="skeleton-line title" />
-        <div className="skeleton-line bar" />
-        <div className="skeleton-line text" />
-        <div className="skeleton-line text short" />
+      <div className="sq-card sq-card-result is-evaluating">
+        <div className="sq-evaluating-radar">
+          <span className="evaluating-ring" />
+          <Cpu size={28} className="text-cyan animate-spin" />
+        </div>
+        <h3 className="evaluating-title">Analyzing Visitor Statement...</h3>
+        <p className="evaluating-subtitle">
+          Running Bedrock/Mock AI Converse verification and deterministic safety rules.
+        </p>
       </div>
     );
   }
 
   if (!result) {
     return (
-      <div className="result-card empty-card">
-        <div className="empty-icon-ring">
-          <Cpu size={24} className="text-muted" />
+      <div className="sq-card sq-card-result is-empty">
+        <div className="sq-card-header">
+          <div className="sq-card-title-group">
+            <span className="sq-card-number">02</span>
+            <div>
+              <h2 className="sq-card-title">Verdict & Enforcement</h2>
+              <p className="sq-card-subtitle">Real-time Ground Truth Analysis</p>
+            </div>
+          </div>
         </div>
-        <p className="empty-text">No active evaluation</p>
-        <p className="empty-subtext">Ring the doorbell to receive real-time security analysis.</p>
+        <div className="sq-empty-state-body">
+          <Radio size={32} className="text-stone-600 mb-3" />
+          <p className="sq-empty-text">Awaiting Intercom Ring</p>
+          <p className="sq-empty-hint">Press the 3D doorbell button or select a scenario to evaluate.</p>
+        </div>
       </div>
     );
   }
@@ -48,36 +62,36 @@ export function ResultCard({ result, loading }) {
     round,
   } = result;
 
-  const isAuthorized = verdict === 'AUTHORIZED';
-  const isNeedsInfo = verdict === 'NEEDS_MORE_INFO';
-  const isSuspicious = verdict === 'SUSPICIOUS';
-
   const badgeConfig = {
     AUTHORIZED: {
       label: 'AUTHORIZED',
       icon: ShieldCheck,
-      colorClass: 'verdict-authorized',
+      cardClass: 'verdict-theme-authorized',
+      pillClass: 'btn-3d-verdict-emerald',
       actionIcon: Unlock,
-      actionText: matched_delivery_id ? 'Package Drop Approved' : 'Visitor Entry Approved',
+      actionText: matched_delivery_id ? 'Package Drop Approved' : 'Visitor Access Granted',
     },
     NEEDS_MORE_INFO: {
       label: 'NEEDS MORE INFO',
       icon: HelpCircle,
-      colorClass: 'verdict-needs-info',
+      cardClass: 'verdict-theme-needs-info',
+      pillClass: 'btn-3d-verdict-amber',
       actionIcon: Lock,
-      actionText: `Awaiting Follow-up (Round ${round}/2)`,
+      actionText: `Inquiry Round ${round}/2`,
     },
     SUSPICIOUS: {
-      label: 'SUSPICIOUS - ACCESS DENIED',
+      label: 'ACCESS DENIED: SUSPICIOUS',
       icon: ShieldAlert,
-      colorClass: 'verdict-suspicious',
+      cardClass: 'verdict-theme-suspicious',
+      pillClass: 'btn-3d-verdict-crimson',
       actionIcon: Lock,
-      actionText: 'Owner Notified • Access Denied',
+      actionText: 'Access Denied • Owner Alerted',
     },
   }[verdict] || {
     label: verdict,
     icon: HelpCircle,
-    colorClass: 'verdict-needs-info',
+    cardClass: 'verdict-theme-needs-info',
+    pillClass: 'btn-3d-verdict-amber',
     actionIcon: Lock,
     actionText: action_taken,
   };
@@ -87,77 +101,83 @@ export function ResultCard({ result, loading }) {
   const confidencePercent = Math.round(confidence * 100);
 
   return (
-    <div className={`result-card ${badgeConfig.colorClass}`}>
-      {/* Header with Verdict Badge and Simulated Hardware Action */}
-      <div className="result-header">
-        <div className={`verdict-badge ${badgeConfig.colorClass}`}>
+    <div className={`sq-card sq-card-result ${badgeConfig.cardClass}`}>
+      {/* Editorial Card Header */}
+      <div className="sq-card-header">
+        <div className="sq-card-title-group">
+          <span className="sq-card-number">02</span>
+          <div>
+            <h2 className="sq-card-title">Verdict & Enforcement</h2>
+            <p className="sq-card-subtitle">Autonomous Security Decision</p>
+          </div>
+        </div>
+
+        {/* 3D Tactile Verdict Pill */}
+        <div className={`btn-3d ${badgeConfig.pillClass}`}>
           <VerdictIcon size={18} />
           <span>{badgeConfig.label}</span>
         </div>
-
-        <div className="action-pill">
-          <ActionIcon size={14} />
-          <span>{badgeConfig.actionText}</span>
-        </div>
       </div>
 
-      {/* Confidence Score Meter */}
-      <div className="confidence-section">
-        <div className="confidence-label-row">
-          <span className="confidence-title">AI Confidence Score</span>
-          <span className="confidence-val">{confidencePercent}%</span>
+      {/* Confidence Meter */}
+      <div className="sq-confidence-box">
+        <div className="sq-confidence-labels">
+          <span className="sq-confidence-tag">AI CONFIDENCE SCORE</span>
+          <span className="sq-confidence-val">{confidencePercent}%</span>
         </div>
-        <div className="confidence-track">
+        <div className="sq-confidence-track">
           <div
-            className={`confidence-fill ${badgeConfig.colorClass}`}
+            className="sq-confidence-bar"
             style={{ width: `${confidencePercent}%` }}
           />
         </div>
       </div>
 
-      {/* Spoken Doorbell Reply */}
-      <div className="spoken-reply-box">
-        <div className="box-title-row">
+      {/* Editorial Spoken Reply Quote */}
+      <div className="sq-spoken-quote-box">
+        <div className="sq-box-heading">
           <Volume2 size={15} className="text-cyan" />
-          <span className="box-title">Spoken Doorbell Intercom Audio</span>
+          <span>ANNOUNCED VIA DOORBELL SPEAKER</span>
         </div>
-        <p className="spoken-text">"{reply_to_visitor}"</p>
+        <blockquote className="sq-spoken-quote">
+          "{reply_to_visitor}"
+        </blockquote>
         {follow_up_question && (
-          <p className="followup-hint">
-            Prompted: <em>{follow_up_question}</em>
+          <p className="sq-followup-prompt">
+            Follow-up Prompted: <em>{follow_up_question}</em>
           </p>
         )}
       </div>
 
-      {/* Decision Reasoning */}
-      <div className="reasoning-box">
-        <div className="box-title-row">
-          <CheckCircle2 size={15} className="text-muted" />
-          <span className="box-title">Security Evaluation Reasoning</span>
+      {/* Reasoning & Rationale */}
+      <div className="sq-reasoning-box">
+        <div className="sq-box-heading">
+          <CheckCircle2 size={15} className="text-stone-400" />
+          <span>SECURITY EVALUATION REASONING</span>
         </div>
-        <p className="reasoning-text">{reasoning}</p>
+        <p className="sq-reasoning-text">{reasoning}</p>
       </div>
 
-      {/* Matched Delivery Details if available */}
+      {/* Delivery / Trusted Schedule Info */}
       {matched_delivery_id && (
-        <div className="matched-delivery-box">
+        <div className="sq-delivery-match-pill">
           <Package size={15} className="text-emerald" />
           <span>
-            Matched Delivery Schedule: <strong>{matched_delivery_id}</strong>
+            Matched Schedule Roster: <strong>{matched_delivery_id}</strong>
           </span>
         </div>
       )}
 
-      {/* Safety Rules Interventions Tag */}
+      {/* Safety Interventions */}
       {safety_interventions.length > 0 && (
-        <div className="safety-interventions-box">
-          <div className="box-title-row">
+        <div className="sq-interventions-container">
+          <div className="sq-box-heading">
             <AlertOctagon size={15} className="text-amber" />
-            <span className="box-title">Safety Rule Interventions Enforced</span>
+            <span>DETERMINISTIC SAFETY OVERRIDES ENFORCED</span>
           </div>
-          <div className="interventions-tags">
+          <div className="sq-interventions-list">
             {safety_interventions.map((item, idx) => (
-              <span key={idx} className="intervention-tag">
+              <span key={idx} className="sq-intervention-chip">
                 {item.replace(/_/g, ' ')}
               </span>
             ))}

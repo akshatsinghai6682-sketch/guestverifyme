@@ -4,8 +4,8 @@ import { enforceSafetyRules } from '../src/services/decisionValidator.js';
 import { getOrCreateSession, recordTurn, clearSession } from '../src/services/conversationStore.js';
 
 describe('GuestVerify Decision & Safety Verification Logic', () => {
-  // Use a fixed timestamp during which del-001 is active (2026-10-16T19:30:00+05:30)
-  const ACTIVE_TIME = new Date('2026-10-16T19:30:00+05:30');
+  // Use a fixed timestamp during which del-001 is active (2026-10-17T19:30:00+05:30)
+  const ACTIVE_TIME = new Date('2026-10-17T19:30:00+05:30');
 
   // 1. Valid delivery in active time window
   it('1. Valid delivery: matches active delivery schedule and returns AUTHORIZED', async () => {
