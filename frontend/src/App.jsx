@@ -5,7 +5,8 @@ import { DoorbellPanel } from './components/DoorbellPanel.jsx';
 import { ResultCard } from './components/ResultCard.jsx';
 import { RecentVisitors } from './components/RecentVisitors.jsx';
 import { OwnerAlertPanel } from './components/OwnerAlertPanel.jsx';
-import { fetchHealth, verifyVisitor, fetchLogs } from './services/api.js';
+import { SecurityRosterModal } from './components/SecurityRosterModal.jsx';
+import { fetchHealth, verifyVisitor, fetchLogs, fetchRoster } from './services/api.js';
 
 export default function App() {
   const [health, setHealth] = useState({ status: 'connecting', aiMode: 'mock' });
@@ -21,6 +22,11 @@ export default function App() {
   const [alerts, setAlerts] = useState([]);
   const [logs, setLogs] = useState([]);
   const [currentTime, setCurrentTime] = useState('');
+
+  // Navigation tab & modal state
+  const [activeTab, setActiveTab] = useState('intercom');
+  const [isRosterOpen, setIsRosterOpen] = useState(false);
+  const [rosterData, setRosterData] = useState(null);
 
   // Live IST Clock (+05:30)
   useEffect(() => {
@@ -64,7 +70,7 @@ export default function App() {
       });
   }, []);
 
-  // Initial load
+  // Initial load: health, logs, and security roster
   useEffect(() => {
     fetchHealth()
       .then((data) => setHealth(data))
@@ -73,8 +79,32 @@ export default function App() {
         setHealth({ status: 'offline', aiMode: 'mock' });
       });
 
+    fetchRoster()
+      .then((data) => setRosterData(data))
+      .catch((err) => {
+        console.warn('Failed to fetch roster:', err.message);
+      });
+
     loadRecentLogs();
   }, [loadRecentLogs]);
+
+  // Handle header tab navigation
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    if (tab === 'roster') {
+      setIsRosterOpen(true);
+    } else if (tab === 'intercom') {
+      setIsRosterOpen(false);
+      const el = document.getElementById('intercom-section');
+      el?.scrollIntoView({ behavior: 'smooth' });
+    } else if (tab === 'audit') {
+      setIsRosterOpen(false);
+      const el = document.getElementById('audit-section');
+      el?.scrollIntoView({ behavior: 'smooth' });
+      el?.classList.add('pulse-highlight');
+      setTimeout(() => el?.classList.remove('pulse-highlight'), 1800);
+    }
+  };
 
   // Text-to-speech speaker synthesis
   const speakSpokenReply = useCallback(
@@ -116,6 +146,7 @@ export default function App() {
     try {
       const result = await verifyVisitor({
         message: visitorText,
+        statement: visitorText,
         conversationId,
       });
 
@@ -190,6 +221,8 @@ export default function App() {
         speechEnabled={speechEnabled}
         setSpeechEnabled={setSpeechEnabled}
         currentTime={currentTime}
+        activeTab={activeTab}
+        onTabClick={handleTabClick}
       />
 
       {/* Main Dashboard Layout */}
@@ -211,7 +244,7 @@ export default function App() {
         {/* 2-Column Product Grid */}
         <div className="product-layout">
           {/* Left Column: Doorbell Intercom & Decision Result */}
-          <div className="column-left">
+          <div className="column-left" id="intercom-section">
             <DoorbellPanel
               message={message}
               setMessage={setMessage}
@@ -233,10 +266,22 @@ export default function App() {
               onClearAll={handleClearAllAlerts}
             />
 
-            <RecentVisitors logs={logs} onSelectLog={(log) => setLastResult(log)} />
+            <div id="audit-section">
+              <RecentVisitors logs={logs} onSelectLog={(log) => setLastResult(log)} />
+            </div>
           </div>
         </div>
       </main>
+
+      {/* Interactive Security Roster Modal */}
+      <SecurityRosterModal
+        roster={rosterData}
+        isOpen={isRosterOpen}
+        onClose={() => {
+          setIsRosterOpen(false);
+          setActiveTab('intercom');
+        }}
+      />
 
       {/* Footer Info */}
       <footer className="footer-bar">

@@ -39,3 +39,9 @@ export async function fetchLogs(limit = 50) {
   if (!res.ok) throw new Error(`Failed to fetch logs: ${res.status}`);
   return await res.json();
 }
+
+export async function fetchRoster() {
+  const res = await fetch('/roster');
+  if (!res.ok) throw new Error(`Failed to fetch roster: ${res.status}`);
+  return await res.json();
+}

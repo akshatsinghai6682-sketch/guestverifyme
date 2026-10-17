@@ -1257,3 +1257,296 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* ==========================================================================
+   INTERACTIVE NAVBAR TABS & SECURITY ROSTER MODAL
+   ========================================================================== */
+
+button.sq-nav-item {
+  background: transparent;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+button.sq-nav-item:hover {
+  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+button.sq-nav-item.active {
+  color: var(--color-cyan);
+  background: rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+/* Section Highlight Pulse Animation */
+.pulse-highlight {
+  animation: glow-pulse 1.8s ease-in-out;
+}
+
+@keyframes glow-pulse {
+  0% { box-shadow: 0 0 0 rgba(6, 182, 212, 0); }
+  30% { box-shadow: 0 0 35px rgba(6, 182, 212, 0.6), 0 0 0 2px var(--color-cyan); }
+  100% { box-shadow: 0 0 0 rgba(6, 182, 212, 0); }
+}
+
+/* Security Roster Modal */
+.sq-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.sq-modal-dialog {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  max-width: 840px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(6, 182, 212, 0.15);
+  overflow: hidden;
+  animation: scaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.sq-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-editorial);
+  background: #0f1013;
+}
+
+.sq-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sq-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.sq-modal-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.sq-modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.sq-modal-close-btn:hover {
+  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sq-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.roster-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+.roster-deliveries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.85rem;
+}
+
+.roster-delivery-card {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-editorial);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  box-shadow: 0 3px 0 #090a0d;
+}
+
+.delivery-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrier-badge {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text-white);
+}
+
+.status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.status-badge.status-active {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.status-badge.status-expired {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-badge.status-upcoming {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.delivery-recipient {
+  font-size: 0.82rem;
+  color: var(--text-ivory);
+}
+
+.delivery-time-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.delivery-tracking-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-editorial);
+  padding-top: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.delivery-id {
+  color: #38bdf8;
+}
+
+.roster-split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .roster-split-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.residents-pill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.resident-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-editorial);
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.trusted-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.trusted-item {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-editorial);
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+.trusted-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.trusted-notes {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.sq-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #0f1013;
+  border-top: 1px solid var(--border-editorial);
+}
+
+.modal-footer-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+

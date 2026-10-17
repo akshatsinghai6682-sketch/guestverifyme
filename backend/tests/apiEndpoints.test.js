@@ -60,4 +60,12 @@ describe('GuestVerify Backend API Endpoints', () => {
     expect(res.body.stats).toHaveProperty('total');
     expect(res.body.stats).toHaveProperty('authorized');
   });
+
+  it('GET /roster returns delivery roster and trusted visitors', async () => {
+    const res = await request(app).get('/roster');
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('expected_deliveries');
+    expect(res.body).toHaveProperty('residents');
+    expect(res.body).toHaveProperty('trusted_visitors');
+  });
 });

@@ -3,6 +3,7 @@ import cors from 'cors';
 import { healthRouter } from './routes/health.js';
 import { verifyRouter } from './routes/verify.js';
 import { logsRouter } from './routes/logs.js';
+import { rosterRouter } from './routes/roster.js';
 
 export function createApp() {
   const app = express();
@@ -15,6 +16,7 @@ export function createApp() {
   app.use('/', healthRouter);
   app.use('/', verifyRouter);
   app.use('/', logsRouter);
+  app.use('/', rosterRouter);
 
   // 404 handler
   app.use((req, res) => {

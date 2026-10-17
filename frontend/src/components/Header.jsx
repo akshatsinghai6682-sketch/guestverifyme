@@ -1,7 +1,14 @@
 import React from 'react';
-import { ShieldCheck, Volume2, VolumeX, Cpu, Radio, Shield } from 'lucide-react';
+import { ShieldCheck, Volume2, VolumeX, Cpu, Radio } from 'lucide-react';
 
-export function Header({ aiMode, speechEnabled, setSpeechEnabled, currentTime }) {
+export function Header({
+  aiMode,
+  speechEnabled,
+  setSpeechEnabled,
+  currentTime,
+  activeTab = 'intercom',
+  onTabClick,
+}) {
   const isBedrock = aiMode === 'bedrock';
 
   return (
@@ -18,11 +25,32 @@ export function Header({ aiMode, speechEnabled, setSpeechEnabled, currentTime })
           </div>
         </div>
 
-        {/* Center Editorial Links */}
+        {/* Center Editorial Links - Fully Functional Tabs */}
         <nav className="sq-nav-links">
-          <span className="sq-nav-item active">INTERCOM STREAM</span>
-          <span className="sq-nav-item">SECURITY ROSTER</span>
-          <span className="sq-nav-item">DECISION AUDIT</span>
+          <button
+            type="button"
+            onClick={() => onTabClick && onTabClick('intercom')}
+            className={`sq-nav-item ${activeTab === 'intercom' ? 'active' : ''}`}
+            title="View Live Doorbell Stream & Camera"
+          >
+            INTERCOM STREAM
+          </button>
+          <button
+            type="button"
+            onClick={() => onTabClick && onTabClick('roster')}
+            className={`sq-nav-item ${activeTab === 'roster' ? 'active' : ''}`}
+            title="Inspect deliveries.json Ground-Truth Roster"
+          >
+            SECURITY ROSTER
+          </button>
+          <button
+            type="button"
+            onClick={() => onTabClick && onTabClick('audit')}
+            className={`sq-nav-item ${activeTab === 'audit' ? 'active' : ''}`}
+            title="Jump to decisions.jsonl Audit Log"
+          >
+            DECISION AUDIT
+          </button>
         </nav>
 
         {/* Right Actions */}

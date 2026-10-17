@@ -9,6 +9,7 @@ export default defineConfig({
       '/verify': 'http://localhost:3002',
       '/logs': 'http://localhost:3002',
       '/health': 'http://localhost:3002',
+      '/roster': 'http://localhost:3002',
     },
   },
 });
