@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header.jsx';
-import { ShowcaseCarousel } from './components/ShowcaseCarousel.jsx';
 import { DemoScenarios } from './components/DemoScenarios.jsx';
 import { DoorbellPanel } from './components/DoorbellPanel.jsx';
 import { ResultCard } from './components/ResultCard.jsx';
@@ -215,28 +214,37 @@ export default function App() {
   };
 
   return (
-    <div className="app-container">
-      {/* Top Navigation & Status Bar */}
-      <Header
-        aiMode={health.aiMode}
-        speechEnabled={speechEnabled}
-        setSpeechEnabled={setSpeechEnabled}
-        currentTime={currentTime}
-        activeTab={activeTab}
-        onTabClick={handleTabClick}
-        onRingBell={handleRingBell}
-      />
+    <div className="app-wrapper">
+      {/* Dynamic Ambient Background Lighting of Highest Quality */}
+      <div className="ambient-background" aria-hidden="true">
+        <div className="ambient-spotlight" />
+        <div className="ambient-orb ambient-orb-1" />
+        <div className="ambient-orb ambient-orb-2" />
+        <div className="ambient-orb ambient-orb-3" />
+        <div className="ambient-grid-mesh" />
+        <div className="ambient-grain-overlay" />
+      </div>
 
-      {/* Main Showcase & Dashboard Layout */}
-      <main className="main-content">
-        {/* Squarespace-style 3D Horizontal Showcase Carousel */}
-        <ShowcaseCarousel
-          onSelectScenario={handleSelectScenario}
-          activeScenarioId={activeScenarioId}
+      <div className="app-container">
+        {/* Top Navigation & Status Bar */}
+        <Header
+          aiMode={health.aiMode}
+          speechEnabled={speechEnabled}
+          setSpeechEnabled={setSpeechEnabled}
+          currentTime={currentTime}
+          activeTab={activeTab}
+          onTabClick={handleTabClick}
           onRingBell={handleRingBell}
-          loading={loading}
-          onOpenRoster={() => setIsRosterOpen(true)}
         />
+
+        {/* Main Dashboard Layout */}
+        <main className="main-content">
+          {/* 3D Tactile Test Scenarios (1-Click Presets) */}
+          <DemoScenarios
+            onSelectScenario={handleSelectScenario}
+            activeScenarioId={activeScenarioId}
+            disabled={loading}
+          />
 
         {error && (
           <div className="error-banner">
@@ -312,5 +320,6 @@ export default function App() {
         <span>Audit Log: backend/logs/decisions.jsonl</span>
       </footer>
     </div>
-  );
+  </div>
+);
 }
