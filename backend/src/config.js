@@ -10,7 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 export const config = {
-  port: parseInt(process.env.PORT || '3001', 10),
+  port: parseInt(process.env.PORT || '3002', 10),
   aiMode: (process.env.AI_MODE || 'mock').toLowerCase(),
   aws: {
     region: process.env.AWS_REGION || 'us-east-1',
