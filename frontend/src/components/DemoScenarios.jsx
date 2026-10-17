@@ -98,8 +98,38 @@ export const SCENARIOS = [
   },
 ];
 
+export const UPPER_ROW = SCENARIOS.slice(0, 4);
+export const LOWER_ROW = SCENARIOS.slice(4);
+
 export function DemoScenarios({ onSelectScenario, activeScenarioId, disabled }) {
   const [viewMode, setViewMode] = useState('isometric'); // 'isometric' | 'cards'
+
+  const renderIsoButton = (sc) => {
+    const IconComponent = sc.icon;
+    const isActive = activeScenarioId === sc.id;
+
+    return (
+      <div key={sc.id} className="iso-item">
+        <button
+          type="button"
+          onClick={() => onSelectScenario(sc)}
+          disabled={disabled}
+          className={`iso-btn ${isActive ? 'is-active' : ''}`}
+          style={{
+            '--brand-color': sc.brandColor,
+            '--side-color': sc.sideColor,
+            '--bottom-color': sc.bottomColor,
+          }}
+          title={`${sc.label} - ${sc.description}`}
+        >
+          <span className="iso-icon">
+            <IconComponent size={18} />
+          </span>
+          <span className="iso-label">{sc.label}</span>
+        </button>
+      </div>
+    );
+  };
 
   return (
     <section className="sq-scenarios-section">
@@ -135,37 +165,20 @@ export function DemoScenarios({ onSelectScenario, activeScenarioId, disabled }) 
         Click any 3D button to load the scenario and ring the doorbell:
       </p>
 
-      {/* ISOMETRIC 3D BUTTONS VIEW (Inspired by @CodeByGaurav showcase) */}
+      {/* STRAIGHT 3D BUTTONS VIEW (UPPER & LOWER ROWS) */}
       {viewMode === 'isometric' ? (
         <div className="iso-stage-wrapper">
-          <ul className="iso-btn-list">
-            {SCENARIOS.map((sc) => {
-              const IconComponent = sc.icon;
-              const isActive = activeScenarioId === sc.id;
+          <div className="iso-rows-container">
+            {/* Upper Row - Straight Horizontal Line */}
+            <div className="iso-row iso-row-upper">
+              {UPPER_ROW.map(renderIsoButton)}
+            </div>
 
-              return (
-                <li key={sc.id} className="iso-item">
-                  <button
-                    type="button"
-                    onClick={() => onSelectScenario(sc)}
-                    disabled={disabled}
-                    className={`iso-btn ${isActive ? 'is-active' : ''}`}
-                    style={{
-                      '--brand-color': sc.brandColor,
-                      '--side-color': sc.sideColor,
-                      '--bottom-color': sc.bottomColor,
-                    }}
-                    title={`${sc.label} - ${sc.description}`}
-                  >
-                    <span className="iso-icon">
-                      <IconComponent size={18} />
-                    </span>
-                    <span className="iso-label">{sc.label}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+            {/* Lower Row - Straight Horizontal Line */}
+            <div className="iso-row iso-row-lower">
+              {LOWER_ROW.map(renderIsoButton)}
+            </div>
+          </div>
         </div>
       ) : (
         /* STANDARD 3D CARDS VIEW */
