@@ -271,6 +271,25 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Squarespace-style Impact Showcase Banner */}
+        <section className="sq-impact-banner">
+          <p className="sq-impact-sub">Zero-trust autonomous security protecting modern residences.</p>
+          <div className="sq-impact-stats">
+            <div className="sq-impact-stat">
+              <span className="sq-stat-number">100%</span>
+              <span className="sq-stat-desc">Ground-Truth Roster Match</span>
+            </div>
+            <div className="sq-impact-stat">
+              <span className="sq-stat-number">&lt;1.2s</span>
+              <span className="sq-stat-desc">AI Evaluation Latency</span>
+            </div>
+            <div className="sq-impact-stat">
+              <span className="sq-stat-number">0</span>
+              <span className="sq-stat-desc">Bypassed Security Breaches</span>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Interactive Security Roster Modal */}
