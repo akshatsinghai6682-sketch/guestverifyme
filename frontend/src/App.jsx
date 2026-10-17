@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header.jsx';
+import { ShowcaseCarousel } from './components/ShowcaseCarousel.jsx';
 import { DemoScenarios } from './components/DemoScenarios.jsx';
 import { DoorbellPanel } from './components/DoorbellPanel.jsx';
 import { ResultCard } from './components/ResultCard.jsx';
@@ -223,15 +224,18 @@ export default function App() {
         currentTime={currentTime}
         activeTab={activeTab}
         onTabClick={handleTabClick}
+        onRingBell={handleRingBell}
       />
 
-      {/* Main Dashboard Layout */}
+      {/* Main Showcase & Dashboard Layout */}
       <main className="main-content">
-        {/* Top: 1-Click Scenario presets */}
-        <DemoScenarios
+        {/* Squarespace-style 3D Horizontal Showcase Carousel */}
+        <ShowcaseCarousel
           onSelectScenario={handleSelectScenario}
           activeScenarioId={activeScenarioId}
-          disabled={loading}
+          onRingBell={handleRingBell}
+          loading={loading}
+          onOpenRoster={() => setIsRosterOpen(true)}
         />
 
         {error && (
