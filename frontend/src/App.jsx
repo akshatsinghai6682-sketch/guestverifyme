@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header.jsx';
 import { CurtainTransition } from './components/CurtainTransition.jsx';
+import { SecurityRadarBackground } from './components/SecurityRadarBackground.jsx';
 import { DemoScenarios } from './components/DemoScenarios.jsx';
 import { DoorbellPanel } from './components/DoorbellPanel.jsx';
 import { ResultCard } from './components/ResultCard.jsx';
@@ -249,8 +250,9 @@ export default function App() {
       {/* Theatrical Curtain Transition Overlay */}
       <CurtainTransition isActive={isCurtainActive} targetTheme={curtainTargetTheme} />
 
-      {/* Dynamic Ambient Background Lighting */}
+      {/* Dynamic Ambient Background Lighting & Security Radar Grid */}
       <div className="ambient-background" aria-hidden="true">
+        <SecurityRadarBackground theme={theme} />
         <div className="ambient-spotlight" />
         <div className="ambient-orb ambient-orb-1" />
         <div className="ambient-orb ambient-orb-2" />
