@@ -709,6 +709,176 @@ body {
   transform: scale(0.98);
 }
 
+/* Mobile Menu Hamburger Button */
+.orchid-mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .orchid-mobile-menu-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+}
+
+.orchid-mobile-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .orchid-mobile-menu-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Drawer Dropdown Sheet */
+.orchid-mobile-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding: 1.15rem 1rem 1.4rem;
+  background: rgba(10, 12, 16, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideDrawerDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .orchid-mobile-drawer {
+  background: rgba(255, 255, 255, 0.98);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes slideDrawerDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+  font-family: var(--font-tech);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: left;
+}
+
+[data-theme="light"] .mobile-drawer-link {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.mobile-drawer-link:hover,
+.mobile-drawer-link.is-active {
+  background: rgba(6, 182, 212, 0.14);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+[data-theme="light"] .mobile-drawer-link:hover,
+[data-theme="light"] .mobile-drawer-link.is-active {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  color: #0369a1;
+}
+
+.mobile-drawer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .mobile-drawer-badge {
+  background: rgba(0, 0, 0, 0.06);
+  color: #64748b;
+}
+
+.mobile-drawer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .mobile-drawer-meta {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+.mobile-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.mobile-clock-pill {
+  font-size: 0.72rem;
+  padding: 0.3rem 0.65rem;
+}
+
+.mobile-drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-cta-btn {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 0.85rem;
+}
+
 /* ==========================================================================
    THEATRICAL CURTAIN TRANSITION ENGINE
    ========================================================================== */
@@ -3336,30 +3506,420 @@ button.sq-nav-item.active {
   border-color: rgba(0, 0, 0, 0.08);
 }
 
-@media (max-width: 900px) {
+/* ==========================================================================
+   COMPREHENSIVE RESPONSIVE SYSTEM (Mobile & Tablet Optimization)
+   ========================================================================== */
+
+/* 1. Global Viewport Overflow Protection */
+html,
+body,
+#root,
+.app-wrapper,
+.app-container {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* 2. Responsive Breakpoint: 1024px (Laptops / Large Tablets) */
+@media (max-width: 1024px) {
+  .product-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* 3. Responsive Breakpoint: 960px (Standard Tablets & Nav Collapse) */
+@media (max-width: 960px) {
+  .orchid-nav,
+  .desktop-only {
+    display: none !important;
+  }
+
+  .orchid-mobile-menu-btn {
+    display: inline-flex;
+  }
+
   .specs-grid {
     grid-template-columns: 1fr;
   }
 }
 
+/* 4. Responsive Breakpoint: 768px (Small Tablets & Large Phones) */
 @media (max-width: 768px) {
+  .orchid-header {
+    padding: 0.75rem 1.15rem;
+  }
+
+  .orchid-header-left {
+    gap: 1rem;
+  }
+
+  .orchid-brand-title {
+    font-size: 1.35rem;
+  }
+
+  .app-container {
+    padding: 1rem 1rem 2.5rem;
+  }
+
+  .main-content {
+    gap: 1.75rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Prevent automatic iOS Safari Zoom on input focus */
+  .sq-text-input {
+    font-size: 16px !important;
+  }
+
+  /* Switchboard responsive grid */
   .iso-stage-wrapper {
-    padding: 2.2rem 1rem 2.5rem;
-    overflow-x: auto;
+    padding: 1.75rem 0.85rem 2rem;
+    overflow-x: visible;
   }
+
   .iso-rows-container {
-    gap: 1.6rem;
+    gap: 1.4rem;
   }
+
+  .iso-bank {
+    gap: 0.75rem;
+  }
+
   .iso-row {
-    gap: 1.8rem 1.4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 0.85rem;
+    width: 100%;
   }
+
+  .iso-item {
+    width: 100%;
+  }
+
   .iso-btn {
-    width: 175px;
-    height: 46px;
-    padding: 0 0.85rem;
+    width: 100%;
+    height: 48px;
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+    box-shadow: -6px 6px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
+
+  .iso-btn::before {
+    left: -6px;
+    width: 6px;
+  }
+
+  .iso-btn::after {
+    bottom: -6px;
+    height: 6px;
+  }
+
+  .iso-btn:hover:not(:disabled),
+  .iso-btn.is-active {
+    transform: translate(6px, -6px);
+    box-shadow: -14px 14px 18px rgba(0, 0, 0, 0.6);
+  }
+
   .iso-label {
     font-size: 0.75rem;
+  }
+
+  .iso-badge {
+    font-size: 0.58rem;
+  }
+
+  /* Estate defense specs */
+  .estate-specs-section {
+    margin-top: 2.5rem;
+    padding: 2rem 0.75rem 1.5rem;
+  }
+
+  .specs-title {
+    font-size: 1.45rem;
+  }
+}
+
+/* 5. Responsive Breakpoint: 640px (Modern Mobile Phones) */
+@media (max-width: 640px) {
+  /* Hero thesis scaling */
+  .hero-thesis-section {
+    margin: 0.75rem auto 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .hero-thesis-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.65rem;
+    white-space: normal;
+  }
+
+  .hero-thesis-title {
+    font-size: clamp(1.65rem, 6.5vw, 2.3rem);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-thesis-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Scenario Section Header */
+  .sq-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .sq-view-toggle {
+    width: 100%;
+    display: flex;
+  }
+
+  .sq-view-toggle .btn-3d {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Card padding reduction */
+  .sq-card {
+    padding: 1.15rem 0.95rem;
+    border-radius: var(--radius-md);
+  }
+
+  .sq-card-header {
+    margin-bottom: 1rem;
+    gap: 0.75rem;
+  }
+
+  .sq-card-title {
+    font-size: 1.18rem;
+  }
+
+  .sq-card-subtitle {
+    font-size: 0.72rem;
+  }
+
+  /* Doorbell Viewport Mobile Re-Orientation: Sleek Horizontal Unit */
+  .sq-viewport-container {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .doorbell-hardware-frame {
+    width: 100%;
+  }
+
+  .doorbell-hardware-unit {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 18px;
+    padding: 0.55rem 0.85rem;
+    gap: 0.75rem;
+  }
+
+  .hardware-speaker-grille {
+    display: flex;
+    gap: 3px;
+  }
+
+  .doorbell-chime-3d-btn {
+    width: auto;
+    aspect-ratio: unset;
+    border-radius: 9999px;
+    padding: 0.45rem 1rem;
+    flex-direction: row;
+    gap: 0.45rem;
+    box-shadow: 0 3px 0 #0284c7, 0 6px 14px rgba(0, 0, 0, 0.4);
+  }
+
+  .chime-bell-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .chime-label {
+    font-size: 0.65rem;
+  }
+
+  .sq-camera-feed {
+    min-height: 250px;
+    max-height: 300px;
+  }
+
+  .sq-chat-row {
+    max-width: 92%;
+  }
+
+  .sq-chat-bubble {
+    font-size: 0.82rem;
+    padding: 0.55rem 0.85rem;
+  }
+
+  /* Form & Actions */
+  .sq-intercom-form {
+    gap: 0.75rem;
+  }
+
+  .sq-input-wrapper {
+    padding: 0.4rem 0.65rem;
+  }
+
+  /* Verdict & Result Card Mobile Refinement */
+  .sq-spoken-quote {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .sq-confidence-val {
+    font-size: 1.15rem;
+  }
+
+  /* Security Roster Modal Mobile Sheet */
+  .sq-modal-backdrop {
+    padding: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .sq-modal-dialog {
+    max-height: 92vh;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .sq-modal-header {
+    padding: 0.85rem 1rem;
+  }
+
+  .sq-modal-title {
+    font-size: 1.05rem;
+  }
+
+  .sq-modal-body {
+    padding: 1rem 0.85rem;
+    gap: 1.25rem;
+  }
+
+  .roster-deliveries-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .roster-split-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .sq-modal-footer {
+    flex-direction: column-reverse;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
+    text-align: center;
+  }
+
+  .sq-modal-footer .btn-3d {
+    width: 100%;
+  }
+
+  /* Footer bar */
+  .footer-bar {
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: center;
+    padding: 1.5rem 0 1rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* 6. Responsive Breakpoint: 480px (Compact Smartphones) */
+@media (max-width: 480px) {
+  .orchid-header {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .orchid-curtain-toggle-btn {
+    padding: 0.35rem 0.65rem;
+  }
+
+  .curtain-toggle-label {
+    display: none;
+  }
+
+  .app-container {
+    padding: 0.75rem 0.6rem 2rem;
+  }
+
+  /* Single-column tactile switch stack for easiest thumb reachability */
+  .iso-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .iso-btn {
+    height: 50px;
+    padding: 0 0.85rem;
+  }
+
+  /* Grid cards view */
+  .sq-scenarios-carousel {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  /* Intercom Form buttons stack */
+  .sq-form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sq-form-actions .btn-3d {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  /* 2x2 Metric tiles grid for crystal clear legibility */
+  .sq-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .metric-tile {
+    padding: 0.65rem 0.35rem;
+  }
+
+  .metric-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+
+  .metric-val {
+    font-size: 1.35rem;
+  }
+
+  .sq-log-text {
+    font-size: 0.78rem;
+  }
+}
+
+/* 7. Ultra-Compact Breakpoint: 360px */
+@media (max-width: 360px) {
+  .orchid-brand-title {
+    font-size: 1.2rem;
+  }
+
+  .hero-thesis-title {
+    font-size: 1.55rem;
+  }
+
+  .sq-card-title {
+    font-size: 1.05rem;
   }
 }
 
