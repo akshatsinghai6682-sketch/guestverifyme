@@ -4,25 +4,80 @@ import { config } from '../config.js';
 let cachedData = null;
 let lastMtime = 0;
 
+const DEFAULT_DELIVERIES_DATA = {
+  residents: ['John Smith', 'Emily Davis'],
+  expected_deliveries: [
+    {
+      id: 'del-001',
+      recipient: 'John Smith',
+      carrier: 'Amazon',
+      window_start: '2026-10-17T17:00:00+05:30',
+      window_end: '2026-10-17T23:59:59+05:30',
+      tracking_last4: '4821',
+    },
+    {
+      id: 'del-002',
+      recipient: 'John Smith',
+      carrier: 'FedEx',
+      window_start: '2026-10-17T10:00:00+05:30',
+      window_end: '2026-10-17T12:00:00+05:30',
+      tracking_last4: '9102',
+    },
+    {
+      id: 'del-003',
+      recipient: 'Emily Davis',
+      carrier: 'DHL',
+      window_start: '2026-10-18T14:00:00+05:30',
+      window_end: '2026-10-18T16:30:00+05:30',
+      tracking_last4: '3310',
+    },
+    {
+      id: 'del-004',
+      recipient: 'Emily Davis',
+      carrier: 'Blue Dart',
+      window_start: '2026-10-17T17:30:00+05:30',
+      window_end: '2026-10-17T23:59:59+05:30',
+      tracking_last4: '7744',
+    },
+    {
+      id: 'del-005',
+      recipient: 'John Smith',
+      carrier: 'UPS',
+      window_start: '2026-10-17T17:00:00+05:30',
+      window_end: '2026-10-17T20:30:00+05:30',
+      tracking_last4: '1198',
+    },
+  ],
+  trusted_visitors: [
+    {
+      name: 'Sarah Jenkins',
+      notes: 'Neighbor next door at #402, authorized for watering plants and spare keys',
+    },
+    {
+      name: 'David Miller',
+      notes: 'HVAC maintenance technician, pre-scheduled filter inspection',
+    },
+  ],
+};
+
 /**
  * Loads deliveries data with automatic cache invalidation on file modification.
  */
 export function getDeliveriesData() {
   try {
-    const stats = fs.statSync(config.paths.deliveriesJson);
-    if (!cachedData || stats.mtimeMs > lastMtime) {
-      const raw = fs.readFileSync(config.paths.deliveriesJson, 'utf-8');
-      cachedData = JSON.parse(raw);
-      lastMtime = stats.mtimeMs;
+    if (fs.existsSync(config.paths.deliveriesJson)) {
+      const stats = fs.statSync(config.paths.deliveriesJson);
+      if (!cachedData || stats.mtimeMs > lastMtime) {
+        const raw = fs.readFileSync(config.paths.deliveriesJson, 'utf-8');
+        cachedData = JSON.parse(raw);
+        lastMtime = stats.mtimeMs;
+      }
+      return cachedData;
     }
-    return cachedData;
+    return DEFAULT_DELIVERIES_DATA;
   } catch (err) {
-    console.error('[deliveryStore] Failed to read deliveries.json:', err.message);
-    return {
-      residents: [],
-      expected_deliveries: [],
-      trusted_visitors: [],
-    };
+    console.warn('[deliveryStore] Using fallback delivery roster:', err.message);
+    return DEFAULT_DELIVERIES_DATA;
   }
 }
 

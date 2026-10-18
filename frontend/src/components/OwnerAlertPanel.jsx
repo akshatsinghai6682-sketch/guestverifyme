@@ -7,17 +7,17 @@ export function OwnerAlertPanel({ alerts, onDismissAlert, onClearAll }) {
       <div className="sq-card sq-card-alerts is-clean">
         <div className="sq-card-header">
           <div className="sq-card-title-group">
-            <span className="sq-card-number">03</span>
-            <div>
-              <h2 className="sq-card-title">Owner Push Feed</h2>
-              <p className="sq-card-subtitle">Real-time Emergency Dispatch</p>
+            <div className="sq-card-identity">
+              <span className="sq-terminal-tag">ALERT DISPATCH</span>
+              <h2 className="sq-card-title">Resident Push Feed</h2>
+              <p className="sq-card-subtitle">Real-Time Mobile Security Notifications</p>
             </div>
           </div>
           <span className="sq-status-pill pill-secure">
-            <ShieldCheck size={12} /> SECURE
+            <ShieldCheck size={12} /> ALL SECURE
           </span>
         </div>
-        <p className="sq-clean-message">No suspicious incidents detected. Perimeters secure.</p>
+        <p className="sq-clean-message">Perimeter quiet. Zero security anomalies or suspicious visitors detected.</p>
       </div>
     );
   }
@@ -26,10 +26,10 @@ export function OwnerAlertPanel({ alerts, onDismissAlert, onClearAll }) {
     <div className="sq-card sq-card-alerts has-alarm">
       <div className="sq-card-header">
         <div className="sq-card-title-group">
-          <span className="sq-card-number">03</span>
-          <div>
-            <h2 className="sq-card-title text-red">Owner Push Feed ({alerts.length})</h2>
-            <p className="sq-card-subtitle">Simulated SMS & Smartphone Dispatches</p>
+          <div className="sq-card-identity">
+            <span className="sq-terminal-tag text-red">SECURITY INCIDENTS</span>
+            <h2 className="sq-card-title text-red">Priority Push Feed ({alerts.length})</h2>
+            <p className="sq-card-subtitle">Urgent Resident Mobile Dispatches</p>
           </div>
         </div>
         <button
@@ -37,7 +37,7 @@ export function OwnerAlertPanel({ alerts, onDismissAlert, onClearAll }) {
           className="btn-3d btn-3d-neutral btn-sm"
           type="button"
         >
-          DISMISS ALL
+          ACK ALL
         </button>
       </div>
 

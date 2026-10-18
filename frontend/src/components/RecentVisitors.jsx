@@ -9,13 +9,13 @@ export function RecentVisitors({ logs, onSelectLog }) {
 
   return (
     <div className="sq-card sq-card-logs">
-      {/* Editorial Card Header */}
+      {/* Architectural Card Header */}
       <div className="sq-card-header">
         <div className="sq-card-title-group">
-          <span className="sq-card-number">04</span>
-          <div>
+          <div className="sq-card-identity">
+            <span className="sq-terminal-tag">AUDIT TRAIL</span>
             <h2 className="sq-card-title">Recent Visitors Audit</h2>
-            <p className="sq-card-subtitle">decisions.jsonl Event Journal</p>
+            <p className="sq-card-subtitle">Zero-Trust Physical Access Journal</p>
           </div>
         </div>
       </div>

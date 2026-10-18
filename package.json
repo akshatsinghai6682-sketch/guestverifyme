@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "description": "GuestVerify - AI security guard for a smart doorbell",
   "private": true,
+  "type": "module",
   "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
     "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
     "dev": "npx --yes concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "test": "npm --prefix backend test"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.750.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

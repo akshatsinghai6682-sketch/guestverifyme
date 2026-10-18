@@ -25,18 +25,18 @@ export function DoorbellPanel({
 
   return (
     <div className="sq-card sq-card-doorbell">
-      {/* Editorial Card Top Bar */}
+      {/* Architectural Card Header */}
       <div className="sq-card-header">
         <div className="sq-card-title-group">
-          <span className="sq-card-number">01</span>
-          <div>
+          <div className="sq-card-identity">
+            <span className="sq-terminal-tag">TERMINAL 01 // FRONT PERIMETER</span>
             <h2 className="sq-card-title">Front Porch Intercom</h2>
-            <p className="sq-card-subtitle">AI Video & Audio Access Control</p>
+            <p className="sq-card-subtitle">Autonomous Optical & Vocal Verification</p>
           </div>
         </div>
         <div className="sq-card-status">
           <span className="sq-rec-dot" />
-          <span className="sq-rec-text">LIVE STREAM • 1080P</span>
+          <span className="sq-rec-text">LIVE 1080P // ENCRYPTED</span>
         </div>
       </div>
 

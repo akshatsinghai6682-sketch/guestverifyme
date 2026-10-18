@@ -34,17 +34,28 @@ export function ResultCard({ result, loading }) {
       <div className="sq-card sq-card-result is-empty">
         <div className="sq-card-header">
           <div className="sq-card-title-group">
-            <span className="sq-card-number">02</span>
-            <div>
+            <div className="sq-card-identity">
+              <span className="sq-terminal-tag">ENFORCEMENT ENGINE</span>
               <h2 className="sq-card-title">Verdict & Enforcement</h2>
-              <p className="sq-card-subtitle">Real-time Ground Truth Analysis</p>
+              <p className="sq-card-subtitle">Zero-Trust Physical Access Evaluation</p>
             </div>
           </div>
+          <span className="sq-status-pill pill-standby">STANDBY</span>
         </div>
         <div className="sq-empty-state-body">
-          <Radio size={32} className="text-stone-600 mb-3" />
-          <p className="sq-empty-text">Awaiting Intercom Ring</p>
-          <p className="sq-empty-hint">Press the 3D doorbell button or select a scenario to evaluate.</p>
+          <div className="sq-empty-radar-wrap">
+            <Radio size={28} className="text-cyan animate-pulse" />
+          </div>
+          <p className="sq-empty-text">Awaiting Intercom Verification</p>
+          <p className="sq-empty-hint">
+            Press the 3D doorbell button or select a simulation switch above to trigger the zero-trust evaluation engine.
+          </p>
+          <div className="sq-active-rules-list">
+            <span className="rule-chip">✓ RULE 1: Ground-Truth Schedule</span>
+            <span className="rule-chip">✓ RULE 2: Resident Match</span>
+            <span className="rule-chip">✓ RULE 3: Window Lock</span>
+            <span className="rule-chip">✓ RULE 5: Injection Shield</span>
+          </div>
         </div>
       </div>
     );
@@ -102,11 +113,11 @@ export function ResultCard({ result, loading }) {
 
   return (
     <div className={`sq-card sq-card-result ${badgeConfig.cardClass}`}>
-      {/* Editorial Card Header */}
+      {/* Architectural Card Header */}
       <div className="sq-card-header">
         <div className="sq-card-title-group">
-          <span className="sq-card-number">02</span>
-          <div>
+          <div className="sq-card-identity">
+            <span className="sq-terminal-tag">SECURITY ENFORCEMENT</span>
             <h2 className="sq-card-title">Verdict & Enforcement</h2>
             <p className="sq-card-subtitle">Autonomous Security Decision</p>
           </div>

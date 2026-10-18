@@ -21,6 +21,6 @@ export const config = {
   },
   paths: {
     deliveriesJson: path.resolve(__dirname, '../data/deliveries.json'),
-    decisionsLog: path.resolve(__dirname, '../logs/decisions.jsonl'),
+    decisionsLog: process.env.DECISIONS_LOG_PATH || (process.env.VERCEL ? '/tmp/decisions.jsonl' : path.resolve(__dirname, '../logs/decisions.jsonl')),
   },
 };

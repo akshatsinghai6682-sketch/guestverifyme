@@ -9,6 +9,7 @@ import { RecentVisitors } from './components/RecentVisitors.jsx';
 import { OwnerAlertPanel } from './components/OwnerAlertPanel.jsx';
 import { SecurityRosterModal } from './components/SecurityRosterModal.jsx';
 import { fetchHealth, verifyVisitor, fetchLogs, fetchRoster } from './services/api.js';
+import { ShieldCheck, Cpu, Lock } from 'lucide-react';
 
 export default function App() {
   const [health, setHealth] = useState({ status: 'connecting', aiMode: 'mock' });
@@ -277,7 +278,21 @@ export default function App() {
 
         {/* Main Dashboard Layout */}
         <main className="main-content">
-          {/* 3D Tactile Test Scenarios (1-Click Presets) */}
+          {/* Architectural Hero Thesis */}
+          <div className="hero-thesis-section">
+            <div className="hero-thesis-badge">
+              <span className="thesis-dot" />
+              <span>AUTONOMOUS ESTATE ACCESS // ZERO-TRUST DEFENSE</span>
+            </div>
+            <h1 className="hero-thesis-title">
+              Autonomous perimeter verification <span className="serif-highlight">for private residences.</span>
+            </h1>
+            <p className="hero-thesis-desc">
+              Direct your estate gate with real-time multimodal AI reasoning, physical chime controls, and deterministic safety overrides.
+            </p>
+          </div>
+
+          {/* 3D Tactile Test Scenarios Switchboard */}
           <DemoScenarios
             onSelectScenario={handleSelectScenario}
             activeScenarioId={activeScenarioId}
@@ -322,21 +337,42 @@ export default function App() {
           </div>
         </div>
 
-        {/* Squarespace-style Impact Showcase Banner */}
-        <section className="sq-impact-banner">
-          <p className="sq-impact-sub">Zero-trust autonomous security protecting modern residences.</p>
-          <div className="sq-impact-stats">
-            <div className="sq-impact-stat">
-              <span className="sq-stat-number">100%</span>
-              <span className="sq-stat-desc">Ground-Truth Roster Match</span>
+        {/* Architectural Security Architecture Showcase */}
+        <section className="estate-specs-section">
+          <div className="specs-header">
+            <span className="specs-tag">ZERO-TRUST VERIFICATION PROTOCOL</span>
+            <h3 className="specs-title">Autonomous Estate Defense Architecture</h3>
+            <p className="specs-desc">
+              Every doorbell activation runs through multi-tiered verification before any physical gate strike is released.
+            </p>
+          </div>
+          <div className="specs-grid">
+            <div className="spec-card">
+              <div className="spec-icon-wrap">
+                <ShieldCheck size={20} className="text-emerald" />
+              </div>
+              <h4 className="spec-label">Ground-Truth Schedule Sync</h4>
+              <p className="spec-detail">
+                Cross-validates courier carrier IDs against encrypted <code>deliveries.json</code> schedules and time windows.
+              </p>
             </div>
-            <div className="sq-impact-stat">
-              <span className="sq-stat-number">&lt;1.2s</span>
-              <span className="sq-stat-desc">AI Evaluation Latency</span>
+            <div className="spec-card">
+              <div className="spec-icon-wrap">
+                <Cpu size={20} className="text-cyan" />
+              </div>
+              <h4 className="spec-label">Autonomous Conversational Reasoning</h4>
+              <p className="spec-detail">
+                AWS Bedrock Converse conducts dynamic, context-aware interrogation to clarify unknown or incomplete visitor statements.
+              </p>
             </div>
-            <div className="sq-impact-stat">
-              <span className="sq-stat-number">0</span>
-              <span className="sq-stat-desc">Bypassed Security Breaches</span>
+            <div className="spec-card">
+              <div className="spec-icon-wrap">
+                <Lock size={20} className="text-amber" />
+              </div>
+              <h4 className="spec-label">Deterministic Override Firewall</h4>
+              <p className="spec-detail">
+                Hardened deterministic rules intercept prompt injection jailbreaks, abusive discourse, and unregistered visitor claims.
+              </p>
             </div>
           </div>
         </section>
