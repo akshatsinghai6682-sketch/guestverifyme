@@ -22,3 +22,5 @@ backend/logs/*.jsonl
 Thumbs.db
 .idea/
 .vscode/
+.vercel
+.env*
